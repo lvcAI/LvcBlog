@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="party.pjc.blog.dao.PostDao" >
+  
+<!--  <resultMap type="Post" id="selectBlogResult">
+  	
+  </resultMap> -->
+ <resultMap id="selectBlogResult" type="Post">
+  <id property="id" column="post_id" />
+  <result property="title" column="post_title"/>
+  <result property="markdown" column="post_markdown"/>
+  <result property="html" column="post_html"/>
+  <result property="rate" column="post_rate"/>
+  <result property="createDate" column="post_createDate"/>
+  <result property="lastEditDate" column="post_lastEditDate"/>
+  <association property="user" javaType="User">
+    <id property="id" column="user_id"/>
+    <result property="userName" column="user_username"/>
+  </association>
+   <association property="categories" javaType="Categories" column="post_id" foreignColumn="post_id" select="selectCatesByPost">
+    <id property="id" column="cate_id"/>
+    <result property="categoriesName" column="cate_cateName"/>
+  </association>
+  <collection property="tags" ofType="Tags" column="post_id" javaType="ArrayList" select="selectTagsByPost">
+			<id property="id" column="tag_id" />
+			<result property="tagName" column="tag_tagName" />
+	</collection>
+  
+</resultMap>
+	
+	
+	<select id="selectCatesByPost"  resultType="Categories" >
+		SELECT  
+		c.id cate_id,
+		c.categoriesName cate_cateName
+		FROM 
+		t_post p,t_post_categories pc,t_categories c 
+		WHERE p.id=pc.post_id AND c.id=pc.categories_id AND p.id=#{id};
+	</select>
+	<select id="findAllPost" resultType="Post"  parameterType="int">
+		select * from t_post  ORDER BY createDate DESC ;
+
+	</select>
+	<select id="findPostLimit"  parameterType="PageBean" resultMap="selectPostsAndTagsResult">
+		SELECT
+		 p.id post_id,p.html post_html,p.markdown post_markdown,
+		 p.createDate post_createDate ,p.lastEditDate post_lastEditDate,
+		 p.title post_title,p.rate post_rate ,
+		 u.userName user_userName,u.id user_id , 
+		 c.categoriesName cate_cateName,
+		c.id cate_id,
+		  t.id tag_id,
+		 t.tagName tag_tagName
+		 FROM 
+		 t_post p,t_user u ,t_tags t,t_categories c ,t_post_categories pc,t_post_tags pt
+		 WHERE
+		(p.user_id = u.id ) AND (t.id=pt.tags_id ) AND  (p.id=pt.post_id) AND (p.id=pc.post_id) 
+		AND (c.id=pc.categories_id) and p.state=1  ORDER BY p.createDate DESC limit #{start},#{pageSize} ;
+
+	</select>
+	
+	<!--  -->
+	<select id="getPostCount" resultType="int">
+		SELECT COUNT(*) FROM t_post
+	</select>
+	<!-- 点击量加1-->
+	<update id="updatePostByRate" parameterType="Post">
+		update t_post set rate=#{rate} where id=#{id}
+	</update>
+	
+	<resultMap id="selectPostsAndTagsResult" type="Post">
+	  <id property="id" column="post_id" />
+	  <result property="title" column="post_title"/>
+	  <result property="markdown" column="post_markdown"/>
+	  <result property="html" column="post_html"/>
+	  <result property="rate" column="post_rate"/>
+	  <result property="createDate" column="post_createDate"/>
+	  <result property="lastEditDate" column="post_lastEditDate"/>
+	  <association property="user" javaType="User">
+	    <id property="id" column="user_id"/>
+	    <result property="userName" column="user_username"/>
+	  </association>
+	   <association property="categories" javaType="Categories">
+	    <id property="id" column="cate_id"/>
+	    <result property="categoriesName" column="cate_cateName"/>
+	  </association>
+	  <collection property="tags" javaType="ArrayList" column="post_id" ofType="Tags" select="selectTagsByPost"/> 
+	</resultMap>
+	
+	
+	<select id="selectPostsAndTags" resultMap="selectPostsAndTagsResult">
+	 	SELECT
+		 p.id post_id,p.html post_html,p.markdown post_markdown,
+		 p.createDate post_createDate ,p.lastEditDate post_lastEditDate,
+		 p.title post_title,p.rate post_rate ,
+		 u.userName user_userName,u.id user_id , 
+		 c.categoriesName cate_cateName,
+		c.id cate_id
+		 FROM 
+		 t_post p,t_user u ,t_categories c ,t_post_categories pc
+		 WHERE
+		p.user_id = u.id  AND  p.id=pc.post_id
+		AND c.id=pc.categories_id  and p.state=1 ORDER BY p.createDate DESC    limit #{start},#{pageSize}  ;
+
+	</select>
+	
+	<select id="selectTagsByPost" resultType="Tags">
+	  SELECT t.tagName ,t.id FROM t_tags t,t_post p,t_post_tags pt  WHERE  p.id=pt.post_id and t.id=pt.tags_id  and p.id=#{id}
+	</select>
+	
+	<select id="findPostByTitle" parameterType="String" resultType="Post">
+	 	select * from t_post where title=#{title}
+	</select>
+	
+	<select id="findPostById"  resultMap="selectPostsAndTagsResult">
+		SELECT
+		 p.id post_id,p.html post_html,p.markdown post_markdown,
+		 p.createDate post_createDate ,p.lastEditDate post_lastEditDate,
+		 p.title post_title,p.rate post_rate ,
+		 u.userName user_userName,u.id user_id , 
+		 c.categoriesName cate_cateName,
+		c.id cate_id
+		 FROM 
+		 t_post p,t_user u ,t_categories c ,t_post_categories pc
+		 WHERE
+		p.user_id = u.id  AND  p.id=pc.post_id
+		AND c.id=pc.categories_id  and p.id=#{id} ;
+	</select>
+	
+	
+	<!-- 更新 pos_tags  -->
+	<insert id="insertPostAndTag" parameterType="Post_Tags">
+		INSERT INTO t_post_tags(post_id,tags_id) VALUES(#{post_id},#{tag_id});
+	</insert>
+	
+	<!-- 更新 pos_categories  -->
+	<insert id="insertPostAndCate" parameterType="Post_Categories">
+		INSERT INTO t_post_categories(post_id,categories_id) VALUES(#{post_id},#{categories_id});
+	</insert>
+	
+	<insert id="insertPost" parameterType="Post" >
+    insert into t_post ( user_id, 
+      title, createDate, lastEditDate, 
+      state, rate, markdown, 
+      html)
+    values ( 1, #{title,jdbcType=VARCHAR}, now(), now(), 1, 0, #{markdown,jdbcType=LONGVARCHAR}, #{html,jdbcType=LONGVARCHAR})
+  </insert>
+<!--   <insert id="insertSelective" parameterType="Post" >
+    insert into t_post
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="archiveId != null" >
+        archive_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="lastEditDate != null" >
+        lastEditDate,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="markdown != null" >
+        markdown,
+      </if>
+      <if test="html != null" >
+        html,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="archiveId != null" >
+        #{archiveId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastEditDate != null" >
+        #{lastEditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=BIGINT},
+      </if>
+      <if test="markdown != null" >
+        #{markdown,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="html != null" >
+        #{html,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert> -->
+  <update id="updatePost" parameterType="Post" >
+    update t_post
+    <set >
+      <if test="state >= 0" >
+        state = #{state},
+      </if>
+    	
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="lastEditDate != null" >
+        lastEditDate = #{lastEditDate,jdbcType=TIMESTAMP},
+      </if>
+   
+      <if test="markdown != null" >
+        markdown = #{markdown,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="html != null" >
+        html = #{html,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+ 	
+ 	<!-- 上一篇 下一篇 -->
+ 	
+ 	<select id="findUpPost" parameterType="Integer" resultType="Post">
+ 		SELECT * FROM t_post WHERE id &lt;#{id} ORDER BY createDate DESC LIMIT 1;
+
+ 	</select>
+ 	<select id="findDownPost" parameterType="Integer" resultType="Post">
+
+ 		SELECT * FROM t_post WHERE id &gt; #{id} ORDER BY createDate ASC LIMIT 1;
+ 	</select>
+ 	
+ 	
+</mapper>

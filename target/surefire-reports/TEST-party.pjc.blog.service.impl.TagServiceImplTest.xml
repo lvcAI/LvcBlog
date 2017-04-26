@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="2" failures="0" name="party.pjc.blog.service.impl.TagServiceImplTest" time="0.109" errors="0" skipped="0">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="D:\Java\jdk1.8.0_77\jre\bin"/>
+    <property name="java.vm.version" value="25.77-b03"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="maven.multiModuleProjectDirectory" value="E:\workspace\LvcBlog"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=";"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.script" value=""/>
+    <property name="user.country" value="CN"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="E:\workspace\LvcBlog"/>
+    <property name="java.runtime.version" value="1.8.0_77-b03"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="D:\Java\jdk1.8.0_77\jre\lib\endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="C:\Users\lvc\AppData\Local\Temp\"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="classworlds.conf" value="E:\workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf616308894759182492.tmp"/>
+    <property name="sun.jnu.encoding" value="GBK"/>
+    <property name="java.library.path" value="D:\Java\jdk1.8.0_77\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;D:/Java/jdk1.8.0_77/bin/../jre/bin/server;D:/Java/jdk1.8.0_77/bin/../jre/bin;D:/Java/jdk1.8.0_77/bin/../jre/lib/amd64;E:\Program Files\mysql-5.7.15-winx64\bin;F:\app\lvc\product\11.2.0\dbhome_1\bin;D:\Java\jdk1.8.0_77\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;D:\WEB\maven\apache-maven-3.2.1\bin;F:\Android_Studio\Andriod\sdk\platform-tools;F:\Program Files\nodejs\;F:\Program Files\Git\bin;C:\Users\lvc\AppData\Local\atom\bin;C:\Program Files\PuTTY\;C:\Users\lvc\AppData\Local\Microsoft\WindowsApps;C:\Users\lvc\AppData\Roaming\npm;C:\Users\lvc\AppData\Local\atom\bin;E:\eclipse-jee-neon-1-RC3-win32-x86_64\eclipse;;."/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.0"/>
+    <property name="user.home" value="C:\Users\lvc"/>
+    <property name="user.timezone" value="Asia/Shanghai"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="GBK"/>
+    <property name="user.name" value="lvc"/>
+    <property name="java.class.path" value="D:\WEB\maven\apache-maven-3.3.9\boot\plexus-classworlds-2.5.2.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="D:\Java\jdk1.8.0_77\jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B -gs C:\Users\lvc\.m2\settings.xml -s C:\Users\lvc\.m2\settings.xml package"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="zh"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_77"/>
+    <property name="java.ext.dirs" value="D:\Java\jdk1.8.0_77\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
+    <property name="sun.boot.class.path" value="D:\Java\jdk1.8.0_77\jre\lib\resources.jar;D:\Java\jdk1.8.0_77\jre\lib\rt.jar;D:\Java\jdk1.8.0_77\jre\lib\sunrsasign.jar;D:\Java\jdk1.8.0_77\jre\lib\jsse.jar;D:\Java\jdk1.8.0_77\jre\lib\jce.jar;D:\Java\jdk1.8.0_77\jre\lib\charsets.jar;D:\Java\jdk1.8.0_77\jre\lib\jfr.jar;D:\Java\jdk1.8.0_77\jre\classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="D:\WEB\maven\apache-maven-3.3.9"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+  </properties>
+  <testcase classname="party.pjc.blog.service.impl.TagServiceImplTest" name="testFindPostByTag" time="0.047"/>
+  <testcase classname="party.pjc.blog.service.impl.TagServiceImplTest" name="testFindTagByTagName" time="0.062"/>
+</testsuite>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="party.pjc.blog.dao.CommentDao" >
+  <resultMap id="BaseResultMap" type="Comment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="post_id" property="postId" jdbcType="INTEGER" />
+    <result column="createdate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+      <result column="name" property="name" jdbcType="VARCHAR" />
+     <result column="context" property="context" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+
+  <select id="listComment" resultMap="BaseResultMap"  >
+    select 
+    id, post_id, createdate, state, comment_id, email,context,name
+    from t_comment
+   
+    <if test="comment != null">
+  			where state=#{comment.state}
+  	</if>
+    order by createdate desc 
+    <if test="pageBean != null">
+    	limit #{pageBean.start},#{pageBean.pageSize}
+    </if>
+  </select>
+  
+  <select id="countComment"  resultType="int">
+  	select count(*) from t_comment
+  
+  	 <if test="context != null">
+  			where state=#{state}
+  	</if>
+  </select>
+ 
+  
+  <insert id="insertComment" parameterType="Comment"   >
+    insert into t_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="postId != null" >
+        post_id,
+      </if>
+        createdate,
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="commentId != null" >
+        comment_id,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="context != null" >
+        context,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+       <if test="name != null" >
+     	  #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null" >
+        #{postId,jdbcType=INTEGER},
+      </if>
+     	 now(),
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="commentId != null" >
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null" >
+        #{context,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateComment" parameterType="Comment" >
+    update t_comment
+  		set
+        state = #{state,jdbcType=INTEGER},
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+</mapper>
