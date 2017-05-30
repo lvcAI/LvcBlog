@@ -6,6 +6,9 @@
 
 	<ul class="breadcrumb">
 		<li>
+			<a href="${pageContext.request.contextPath}/admin/admin">首页</a>
+		</li>
+		<li>
 			文章 Post
 		</li>
 					
@@ -34,38 +37,25 @@
 							<!-- On cells (`td` or `th`) -->
 							<tbody>
 								<c:forEach items="${pos_list }" var="post" varStatus="count" >
-									<tr>
+									<tr id="${post.id}">
 									  <td >${count.count}</td>
 									  <td ><a href="${pageContext.request.contextPath}/blog/post/${post.id}">${post.title}</a></td>
 									  <td >   <a href="#"><i class="fa fa-share-alt"></i></a></td>
 									  <td > <a href="${pageContext.request.contextPath}/admin/post/update/${post.id}">修改</a></td>
-									  <td ><a href="${pageContext.request.contextPath}/admin/post/delete/${post.id}">删除</a></td>
+									  <td ><a href="javascript:deletePost(${post.id});">删除</a></td>
 									</tr>
 								
 								</c:forEach>								
 							</tbody>		
 						 </table>
 					
-						 <nav>
+						<!-- nav page -->
+						
+						  <nav>
 						  <ul class="pagination">
-						    <li>
-						      <a href="#" aria-label="Previous">
-						        <span aria-hidden="true">&laquo;</span>
-						      </a>
-						    </li>
-						    <li><a href="#">1</a></li>
-						    <li><a href="#">2</a></li>
-						    <li><a href="#">3</a></li>
-						    <li><a href="#">4</a></li>
-						    <li><a href="#">5</a></li>
-						    <li>
-						      <a href="#" aria-label="Next">
-						        <span aria-hidden="true">&raquo;</span>
-						      </a>
-						    </li>
+						     ${navPage}
 						  </ul>
 						</nav>
-						
 					</div>	
 				</main>		
 				

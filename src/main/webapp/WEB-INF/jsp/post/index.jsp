@@ -44,6 +44,7 @@
 	width: 100%;
 	height: 100%;
 }
+
 </style>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/img/css/share_style0_24.css">
@@ -114,18 +115,20 @@
 			
 				<article id="98" class="post">
 
-					<div class="post-head">
-						<h1 class="post-title">
-							<a href="${pageContext.request.contextPath}/blog/post/${post.id}">${post.title}</a>
-						</h1>
-						<div class="post-meta">
-							<span class="author">作者：<a
-								href="about">${post.user.userName}</a></span> •
-							<time class="post-date" 
-								title="${post.createDate}">${fn:substring(post.createDate,0,10)}</time>
-								<span class="author">分类：<a href="${pageContext.request.contextPath}/categories/${post.categories.categoriesName}">${post.categories.categoriesName}</a></span>
+					
+						<div class="post-head">
+							<h1 class="post-title">
+								<a href="${pageContext.request.contextPath}/blog/post/${post.id}">${post.title}</a>
+							</h1>
+							<div class="post-meta">
+								<span class="author"><a
+									href="${pageContext.request.contextPath}/about"><i class="fa fa-user-md"></i>  ${post.user.userName}</a></span> • 
+								<time class="post-date" 
+									title="${post.createDate}"> <i class="fa fa-calendar"></i> ${fn:substring(post.createDate,0,10)}</time>
+									<span class="author"><i class="fa fa-tags"></i> <a href="${pageContext.request.contextPath}/categories/${post.categories.categoriesName}">${post.categories.categoriesName}</a></span>
+									<%-- <span><i class="fa fa-star" style="color: "></i> ${post.rate}</span> --%>
+							</div>
 						</div>
-					</div>
 					<div class="post-content">
 						${fn:substring(post.html,0,500)}
 					</div>
@@ -142,7 +145,20 @@
 							</c:forEach>
 						</div>
 						
-						<div class="pull-right share"></div>
+						<div class="pull-right share">
+							<!-- JiaThis Button BEGIN -->
+								<div class="jiathis_style">
+									<span class="jiathis_txt">分享到：</span>
+									<a class="jiathis_button_icons_1"></a>
+									<a class="jiathis_button_icons_2"></a>
+									<a class="jiathis_button_icons_3"></a>
+									<a class="jiathis_button_icons_4"></a>
+									<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+									<a class="jiathis_counter_style"></a>
+								</div>
+								<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+								<!-- JiaThis Button END -->
+						</div>
 					</footer>
 					
 				</article>
@@ -200,7 +216,7 @@
 						<h4 class="title">分类</h4>
 						<div class="content tag-cloud">
 						<c:forEach var="categories" items="${categoriess}">
-								<a href="${pageContext.request.contextPath}/categories/${categories.categoriesName}">${categories.categoriesName}</a>
+								<a href="${pageContext.request.contextPath}/categories/${categories.typeName}">${categories.typeName}</a>
 							</c:forEach>
 							 <a
 								href="${pageContext.request.contextPath}/categories/categories-cloud/">...</a>
@@ -293,9 +309,9 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<span>Copyright © <a href="http://pjc.party">iLvc</a></span>
-					| <span><a href="#"
-						target="_blank">开发版</a></span> | <span></span>
+					<span>Copyright © <a href="http://ilvc.me">iLvc | Lvc唯爱 </a></span>
+					|  <span><a href="http://www.miibeian.gov.cn/"
+						target="_blank">赣ICP备17005492号</a></span> | <span></span>
 				</div>
 			</div>
 		</div>

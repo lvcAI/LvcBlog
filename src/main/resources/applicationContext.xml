@@ -17,14 +17,50 @@
 	<context:component-scan base-package="party.pjc.blog.service" />
 	
 	<!-- 配置数据源 -->
-	<bean id="dataSource"
+	<!-- <bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
 		<property name="url" value="jdbc:mysql://localhost:3306/db_lvcblog?useUnicode=true&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true"/>
 		<property name="username" value="root"/>
 		<property name="password" value="lvc159357"/>
+	</bean> -->
+	
+	<!-- 配置数据源 -->
+	<bean id="dataSource"
+		class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="url" value="jdbc:mysql://localhost:3306/db_lvcblog?useUnicode=true&amp;characterEncoding=UTF-8"/>
+		<property name="username" value="root"/>
+		<property name="password" value="lvc159357"/>
+		 <!-- 初始化连接大小 -->
+        <property name="initialSize" value="8" />
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="300" />
+        <!-- 连接池最大空闲 -->
+        <property name="maxIdle" value="20" />
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="0" />
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="60000" />
+        <property name="validationQuery" value="${validationQuery}" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+        <property name="testWhileIdle" value="true" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="25200000" />
+        <!-- 打开removeAbandoned功能 -->
+        <property name="removeAbandoned" value="true" />
+        <!-- 1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="1800" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true" />
+        <!-- 监控数据库 -->
+        <!-- <property name="filters" value="stat" /> -->
+        <property name="filters" value="mergeStat" />
+		
 	</bean>
-
+	<!-- <property name="password" value="Lvc19950403"/> -->
 	<!-- 配置mybatis的sqlSessionFactory -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -56,7 +92,7 @@
 	<!-- Shiro过滤器 -->
 	 <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">  
 	   <!--  Shiro的核心安全接口,这个属性是必须的   -->
-	     <property name="securityManager" ref="securityManager"/> 
+	    <property name="securityManager" ref="securityManager"/> 
 	   <!--  身份认证失败，则跳转到登录页面的配置   -->
 	    <property name="loginUrl" value="/login.jsp"/>
 	   <!--  权限认证失败，则跳转到指定页面   -->
@@ -66,7 +102,9 @@
 	        <value>  
 				  /login=anon
 				  /admin/login=anon
+				  /admin/post/presave=anon
 				/admin/**=authc,roles[admin]
+				
 	        </value>  
 	    </property>
 	</bean>  

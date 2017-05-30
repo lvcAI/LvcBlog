@@ -26,7 +26,8 @@
   	</resultMap>
 
 	 <select id="findAllTag" resultType="Tags">
-	 		select * from t_tags;
+	 		select * from t_tags 
+	 		
 	 </select>
 	
 	<select id="findPostByTag" parameterType="String" resultMap="postByTagResult">
@@ -42,11 +43,11 @@
 		 FROM 
 		 t_post p,t_user u ,t_tags t,t_post_tags pt,t_post_categories pc,t_categories c 
 		 WHERE
-		p.user_id = u.id  AND t.id=pt.tags_id AND  p.id=pt.post_id  AND p.id=pc.post_id and p.state=1 AND c.id=pc.categories_id AND t.tagName=#{tagName}  ORDER BY p.createDate DESC 
+		p.user_id = u.id  AND t.id=pt.tags_id AND  p.id=pt.post_id  AND p.id=pc.post_id AND p.state=1 AND c.id=pc.categories_id AND t.tagName=#{tagName}  ORDER BY p.createDate DESC 
 	</select>
 
 	<select id="selectTagsByPost" resultType="Tags">
-	  SELECT t.tagName ,t.id FROM t_tags t,t_post p,t_post_tags pt  WHERE  p.id=pt.post_id and t.id=pt.tags_id  and p.id=#{id}
+	  SELECT t.tagName ,t.id FROM t_tags t,t_post p,t_post_tags pt  WHERE  p.id=pt.post_id and t.id=pt.tags_id and p.state=1 and p.id=#{id}
 	</select>
 	<select id="findTagsByName" resultType="Tags">
 		select * from t_tags where tagName=#{tagName}

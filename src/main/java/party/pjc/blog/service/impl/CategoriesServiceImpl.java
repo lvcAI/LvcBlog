@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import party.pjc.blog.dao.CategoriesDao;
 import party.pjc.blog.model.Categories;
+import party.pjc.blog.model.vo.CountResult;
 import party.pjc.blog.service.CategoriesService;
 
 @Service("categoriesService")
@@ -58,6 +59,12 @@ public class CategoriesServiceImpl implements CategoriesService {
 	public int findPostCountByCate(Categories categories) {
 		
 		return this.categoriesDao.findPostCountByCate(categories);
+	}
+
+	@Override
+	public List<CountResult> findPostCountByCates() {
+		// TODO Auto-generated method stub
+		return this.categoriesDao.findPostCountByCates();
 	}
 
 	

@@ -86,7 +86,7 @@
 						        <form id="add">
 						          <div class="form-group">
 						            <label for="urlName" class="control-label">URL Name:</label>
-						            <input type="text"  class="form-control" id="urlName" required="required">
+						            <input type="text"  class="form-control" id="urlname" >
 						          </div>
 						          <div class="form-group">
 						            <label for="url" class="control-label">URL Address </label>
@@ -110,31 +110,6 @@
 
 	<!-- start footer and copyright -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
-<script type="text/javascript">
 
-	
-	
-$(document).ready(function(){
-	
-	$("#addLink").click(function(){
-		var urlName =$("#urlName").text();
-		var url = $("#url").text();
-		alert(urlName+"；"+url);
-		if(urlName!=null && urlName!=""){
-			alert("URL Name 不能为空！");
-		}else if(url!=null && url!=""){
-			alert("URL 不能为空！");
-		}else{
-			var reg=/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/;
-			if(!reg.test(url)){
-				 alert("这网址不是以http://https://开头，或者不是网址！");
-			}else{
-				alert("可以添加数据了。");
-			}
-		}
-			
-	});
-	});
-</script>
 </body>
 </html>

@@ -42,11 +42,11 @@
 					</article>
 					<article class="post page">
 			 			<header class="post-head">
-					        <h4 class="" align="left">Write something</h4>
+					        <h4 id="writeGuest" align="left">Write something....? click here </h4>
 					       
 					    </header>			
 
-					    	<div>
+					    	<div id="toggleGuest" style="display:none;">
 					    		<form>
 								    <div style="padding: 10px;">
 								        Name: <input id="userName" class="f-text"  placeholder="u name "/>
@@ -78,7 +78,7 @@
 												      <img class="media-object img-circle" alt="64x64" src="${pageContext.request.contextPath}/resources/img/face/face${count.count}.gif"  style="width: 64px; height: 64px;">
 												  </div>
 												  <div class="media-body">
-													   	 <h4 class="media-heading">@${comment.name } <span style="font-size:10px;margin-left:20px;">${comment.createdate}</span></h4>
+													   	 <h4 class="media-heading"><span style="color: blue;">@</span>${comment.name } <span style="font-size:10px;margin-left:20px;">${comment.createdate}</span></h4>
 												   	 <p>${comment.context}</p>
 												   </div>
 											</div> 
@@ -148,7 +148,10 @@
 	}
 	
 	
-
+	$("#writeGuest").click(function(){
+		  $("#toggleGuest").toggle();
+		});
+	
 
 </script>
 </body>

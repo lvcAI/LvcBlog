@@ -4,6 +4,7 @@ import java.util.List;
 
 import party.pjc.blog.model.Categories;
 import party.pjc.blog.model.Tags;
+import party.pjc.blog.model.vo.CountResult;
 
 public interface CategoriesDao {
 
@@ -17,4 +18,5 @@ public interface CategoriesDao {
 	public Categories findCategoriesByName(String cateName);
 	public Categories findPostByCategorise(String categoriesName);
 	public int findPostCountByCate(Categories categories);
+	public List<CountResult> findPostCountByCates();
 	}

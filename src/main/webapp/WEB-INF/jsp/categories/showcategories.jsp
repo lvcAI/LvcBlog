@@ -30,7 +30,7 @@
 					        分类
 					    </h3>
 					    <div class="post-count">
-					      共 ${allcates.size()}个分类
+					      共 ${catesResult.size()}个分类
 				    	</div>
 				    </div>
 	
@@ -40,8 +40,8 @@
 					    </header>			
 					    <section class="post-content widget">
 					    	<div class="tag-cloud">
-					          <c:forEach items="${allcates}" var="cates">
-					          		<a href="${pageContext.request.contextPath}/categories/${cates.categoriesName}">${cates.categoriesName}</a>			
+					          <c:forEach items="${catesResult}" var="cates">
+					          		<a href="${pageContext.request.contextPath}/categories/${cates.typeName}">${cates.typeName}</a>			
 					          </c:forEach>
 					            
 					        </div>

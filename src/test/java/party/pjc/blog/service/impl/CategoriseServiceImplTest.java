@@ -22,6 +22,10 @@ public class CategoriseServiceImplTest {
 	public void testFindPostByTag() {
 		
 		
-			System.out.println(categoriesService.findPostByCategorise("Éú»î"));
+			System.out.println(categoriesService.findPostByCategorise("ç”Ÿæ´»"));
+	}
+	@Test
+	public void testfindPostCountByCate1(){
+		System.out.println(categoriesService.findPostCountByCates());
 	}
 }

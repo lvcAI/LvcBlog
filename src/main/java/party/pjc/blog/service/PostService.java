@@ -9,7 +9,7 @@ import party.pjc.blog.model.Post_Tags;
 
 public interface PostService {
 
-	public List<Post> findAllPost();
+	public List<Post> findAllPost(int id);
 	
 	public Post findPostById(int id);
 	public int updatePost(Post post);

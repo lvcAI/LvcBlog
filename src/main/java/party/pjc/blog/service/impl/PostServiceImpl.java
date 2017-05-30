@@ -20,9 +20,9 @@ public class PostServiceImpl implements PostService {
 	private PostDao postDao;
 	
 	@Override
-	public List<Post> findAllPost() {
+	public List<Post> findAllPost(int id) {
 		// TODO Auto-generated method stub
-		return this.postDao.findAllPost() ;
+		return this.postDao.findAllPost(id) ;
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public int updatePostByRate(Post post) {
 		// TODO Auto-generated method stub
-		return this.postDao.updatePostByRate(post);
+		return postDao.updatePostByRate(post);
 	}
 
 	@Override

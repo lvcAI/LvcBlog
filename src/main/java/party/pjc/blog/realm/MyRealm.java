@@ -20,7 +20,7 @@ public class MyRealm extends AuthorizingRealm {
 	private UserService userService;
 	
 	/**
-	 * Îªµ±ÏŞÇ°µÇÂ¼µÄÓÃ»§ÊÚÓè½ÇÉ«ºÍÈ¨
+	 * è§’è‰²å’Œæƒé™è®¤è¯
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -34,7 +34,7 @@ public class MyRealm extends AuthorizingRealm {
 	}
 
 	/**
-	 * ÑéÖ¤µ±Ç°µÇÂ¼µÄÓÃ»§
+	 * ç™»é™†è®¤è¯
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {

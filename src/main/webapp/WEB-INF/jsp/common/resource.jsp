@@ -15,7 +15,10 @@
 <link href="${pageContext.request.contextPath}/resources/css/magnific-popup.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/screen.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/comment.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/editormd/css/editormd.preview.min.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/editormd/css/editormd.min.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/comment.js"></script>
+
 <!-- <script type="text/javascript" src="resources/js/loading.js"></script> -->

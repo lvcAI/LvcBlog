@@ -1,10 +1,14 @@
 package party.pjc.blog.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,8 +29,11 @@ import party.pjc.blog.service.LinkService;
 import party.pjc.blog.service.PostService;
 import party.pjc.blog.service.TagsService;
 import party.pjc.blog.service.UserService;
+import party.pjc.blog.sys.LvcBlogSystem;
 import party.pjc.blog.util.PropertiesUtil;
+import party.pjc.blog.util.ResponseUtil;
 import party.pjc.blog.util.StringUtil;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -41,7 +48,9 @@ public class AdminController {
 	@Autowired
 	private PostService postService; 
 	@Autowired
-	private LinkService linkService; 
+	private LinkService linkService;
+	
+	private LvcBlogSystem system;
 
 	@RequestMapping(value="/admin",method=RequestMethod.GET)
 	public String allTag(HttpServletRequest requset){
@@ -49,18 +58,51 @@ public class AdminController {
 		return "/admin";
 	}
 	
-	@RequestMapping(value="/post/add",method=RequestMethod.GET)
+	/*@RequestMapping(value="/post/add",method=RequestMethod.GET)
 	public String addPost(HttpServletRequest requset){
 		requset.setAttribute("mainPage", "post/addpost.jsp");
 		requset.setAttribute("edit_post_tags",tagsService.findAllTag() );
 		requset.setAttribute("edit_post_cates",categoriesService.findAllCategories());
+		List<Post> posts =postService.selectPostsAndTags(new PageBean(1, Integer.parseInt(PropertiesUtil.getValue("pageSize")))); 
+		HttpSession session = requset.getSession();
+		session.setAttribute("posts",posts );
 		return "/admin";
 	}
+	
+	@RequestMapping(value="/post/delete/{postId}",method=RequestMethod.POST)
+	public String deletePost(@PathVariable("postId") int postId,HttpServletRequest requset,HttpServletResponse response){
+		int result= postService.updatePost(new Post(postId,2));
+		requset.setAttribute("pos_list", postService.findAllPost(1));
+		requset.setAttribute("mainPage", "post/postlist.jsp");
+		try {
+			if(result>0){
+				ResponseUtil.write(1, response);
+			}else{
+				ResponseUtil.write(0, response);
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			system = new LvcBlogSystem();
+			system.refreshSystem(requset);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
+	
 	@SuppressWarnings("unused")
 	@RequestMapping(value="/post/save",method=RequestMethod.POST)
 	public String savePost(Post post,HttpServletRequest requset){
-		System.out.println(post);
+		
+		HttpSession session = requset.getSession();
+		
 		int postId =0;
 		String tags1 = requset.getParameter("tags1");
 		String categories1 = requset.getParameter("categories1");
@@ -68,15 +110,25 @@ public class AdminController {
 		
 		if(StringUtil.isNotEmpty(updateId)){
 			post.setId(Integer.parseInt(updateId));
+			post.setState(1);
 			postService.updatePost(post);
 			System.out.println(postService.findPostById(Integer.parseInt(updateId)));
+			List<Post> posts =postService.selectPostsAndTags(new PageBean(1, Integer.parseInt(PropertiesUtil.getValue("pageSize")))); 
+			try {
+				system = new LvcBlogSystem();
+				system.refreshSystem(requset);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return "redirect:/blog/post/"+Integer.parseInt(updateId);
 		}else{		
 			if(post.getTitle()!=null || post.getTitle()!="" ){
+				post.setState(1);
 				int result = postService.insertPost(post);
 				if(result>0){
 					postId = postService.findPostByTitle(post.getTitle()).getId();
-					requset.setAttribute("pos_list", postService.findAllPost());
+					requset.setAttribute("pos_list", postService.findAllPost(1));
 					requset.setAttribute("mainPage", "post/postlist.jsp");
 					
 					
@@ -116,15 +168,21 @@ public class AdminController {
 				postService.insertPostAndCate(new Post_Categories(postId,cateId));
 			}
 		}
-		HttpSession session = requset.getSession();
 		session.setAttribute("posts", postService.selectPostsAndTags(new PageBean(1, Integer.parseInt(PropertiesUtil.getValue("pageSize")))));
-		return "/admin";
+		try {
+			system = new LvcBlogSystem();
+			system.refreshSystem(requset);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "redirect:/admin/admin";
 	}
 	
 	@RequestMapping(value="/post/list",method=RequestMethod.GET)
 	public String postList(HttpServletRequest requset){
 		requset.setAttribute("mainPage", "post/postlist.jsp");
-		requset.setAttribute("pos_list", postService.findAllPost());
+		requset.setAttribute("pos_list", postService.findAllPost(1));
 		return "/admin";
 	}
 	@RequestMapping(value="/post/update/{postId}",method=RequestMethod.GET)
@@ -134,20 +192,20 @@ public class AdminController {
 		System.out.println(update_post);
 		requset.setAttribute("update_post", update_post);
 		requset.setAttribute("mainPage", "post/addpost.jsp");
-		requset.setAttribute("pos_list", postService.findAllPost());
+		requset.setAttribute("pos_list", postService.findAllPost(1));
 		return "/admin";
 	}
 	
 	
 	@RequestMapping(value="/post/trash",method=RequestMethod.GET)
 	public String post(HttpServletRequest requset){
-		requset.setAttribute("pos_list", postService.findAllPost());
+		requset.setAttribute("pos_list", postService.findAllPost(2));
 		requset.setAttribute("mainPage", "post/postlist.jsp");
 		return "/admin";
-	}
+	}*/
 	
 //	Link 管理
-	@RequestMapping(value="/links/add",method=RequestMethod.GET)
+/*	@RequestMapping(value="/links/add",method=RequestMethod.GET)
 	public String addLink(HttpServletRequest requset){
 		requset.setAttribute("mainPage", "link/addLink.jsp");
 		
@@ -173,7 +231,7 @@ public class AdminController {
 		requset.setAttribute("mainPage", "link/Linklist.jsp");
 		requset.setAttribute("link_list", linkService.findAllLink(new Link(null,1),null));
 		return "/admin";
-	}
+	}*/
 	
 	
 	
@@ -192,7 +250,8 @@ public class AdminController {
 		System.out.println(user);
 		try{
 			subject.login(token);
-			
+			Session s = subject.getSession();
+			s.setTimeout(7200000);//设置过期时间 为2小时，默认时间是30分钟，每次写个博客写完了，提交一下 会话过期，东西全没了
 			return "redirect:/admin/admin";
 		}catch(Exception e){
 			e.printStackTrace();

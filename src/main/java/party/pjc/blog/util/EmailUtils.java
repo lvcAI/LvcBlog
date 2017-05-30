@@ -2,7 +2,8 @@ package party.pjc.blog.util;
 
 
 
-	import java.util.Properties;
+	import java.io.UnsupportedEncodingException;
+import java.util.Properties;
 	 
 	import javax.mail.Authenticator;
 	import javax.mail.Message;
@@ -23,7 +24,7 @@ import party.pjc.blog.model.vo.EmailResult;
 		public  static final String pws ="kqxfyatvbbfddifh";//khgndvefptmdecga kqxfyatvbbfddifh
 		
 		
-		public static void sendEmail(EmailResult email){
+		public static void sendEmail(EmailResult email) throws Exception{
 			
 			 // 指定发送邮件的主机为 smtp.qq.com
 		      String host = "smtp.qq.com";  //QQ 邮件服务器
@@ -53,7 +54,7 @@ import party.pjc.blog.model.vo.EmailResult;
 		         MimeMessage message = new MimeMessage(session);
 		 
 		         // Set From: 头部头字段
-		         message.setFrom(new InternetAddress(from));
+		         message.setFrom(new InternetAddress(from,"iLvc.me | 博客系统","UTF-8"));
 		 
 		         // Set To: 头部头字段
 		         message.addRecipient(Message.RecipientType.TO,

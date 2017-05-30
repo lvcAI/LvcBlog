@@ -9,8 +9,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="iLvc | Lvc唯爱">
+    <meta name="author" content="lvc">
     
 	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico">
 
@@ -61,11 +61,11 @@ $(function() {
         },
         qiniuTokenUrl : "${pageContext.request.contextPath}/getQiniuToken",	
         qiniuPublishUrl :"http://ooprvk5m6.bkt.clouddn.com",
-        htmlDecode	  : "false",						//是否开启html解析，默认不开启				
+        htmlDecode	  : "true",						//是否开启html解析，默认不开启				
 	});
 });
 
-$("#panel-1").pin()
+
 </script>
 
 </head>
@@ -158,6 +158,11 @@ $("#panel-1").pin()
 								<i class="fa fa-th-list "></i>&nbsp;&nbsp; <a href="#">系统常量</a>
 								
 							</div>
+							<div class="panel-body">
+							
+								<i class="fa fa-th-list "></i>&nbsp;&nbsp; <a href="javascript:refreshSystem();">刷新系统缓存</a>
+								
+							</div>
 						</div>
 					</div>
 					<div class="panel panel-default">
@@ -181,7 +186,7 @@ $("#panel-1").pin()
 					</li>
 				</ul> -->
 				<c:if test="${mainPage!=null }">
-				<jsp:include page="${mainPage}"></jsp:include>
+					<jsp:include page="${mainPage}"></jsp:include>
 				</c:if>
 				<c:if test="${mainPage==null }">
 					<div style="position: absolute;left: 350px;height: 600px;">
@@ -195,8 +200,33 @@ $("#panel-1").pin()
 
 
 <script>
-      $(".pinned").pin({containerSelector: ".contained"});
-    </script>
+   
+    
+	function deletePost(postId){
+		if(confirm("确定要是删除id为"+postId+"的Post吗？")){
+			$.post("${pageContext.request.contextPath}/admin/post/delete/"+postId,postId,function(result){
+				if(result==1){
+					alert("删除成功！");
+					$("#"+postId).remove();
+				}else{
+					alert("删除失败！");
+				}
+			});
+		}
+	}	
+	function refreshSystem(){
+		$.post("${pageContext.request.contextPath}/admin/system/refreshSystem",function(result){
+			if(result.code==1){
+				alert(result.message);
+			
+			}else{
+				alert("刷新失败！");
+			}
+		},"json");
+	}
+	
+	   $(".pinned").pin({containerSelector: ".contained",minWidth: 940});
+</script>
 </body>
 
 </html>

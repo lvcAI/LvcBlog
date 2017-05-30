@@ -1,4 +1,9 @@
-E:\workspace\LvcBlog\src\test\java\party\pjc\blog\service\impl\PostServiceTest.java
-E:\workspace\LvcBlog\src\test\java\party\pjc\blog\service\impl\TagServiceImplTest.java
-E:\workspace\LvcBlog\src\test\java\party\pjc\blog\service\impl\UserServiceImplTest.java
-E:\workspace\LvcBlog\src\test\java\party\pjc\blog\service\impl\CategoriseServiceImplTest.java
+D:\MyWork\workspace\LvcBlog\src\test\java\party\pjc\blog\redis\RedisTest.java
+D:\MyWork\workspace\LvcBlog\src\test\java\party\pjc\blog\service\impl\TagServiceImplTest.java
+D:\MyWork\workspace\LvcBlog\src\test\java\party\pjc\blog\service\impl\UserServiceImplTest.java
+D:\MyWork\workspace\LvcBlog\src\test\java\party\pjc\blog\service\impl\CategoriseServiceImplTest.java
+D:\MyWork\workspace\LvcBlog\src\test\java\party\pjc\blog\service\impl\CommentServiceImplTest.java
+D:\MyWork\workspace\LvcBlog\src\test\java\party\pjc\blog\service\impl\PostServiceTest.java
+D:\MyWork\workspace\LvcBlog\src\test\java\party\pjc\blog\log\LogTest.java
+D:\MyWork\workspace\LvcBlog\src\test\java\party\pjc\blog\lucene\PostIndexTest.java
+D:\MyWork\workspace\LvcBlog\src\test\java\party\pjc\blog\service\impl\LinkServiceImplTest.java

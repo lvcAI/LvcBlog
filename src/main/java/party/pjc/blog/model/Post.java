@@ -11,8 +11,8 @@ public class Post {
 	private String title;
 	private String html;
 	private String markdown;
-	private Timestamp createDate = new Timestamp(new Date().getTime());
-	private Timestamp lastEditDate = new Timestamp(new Date().getTime());
+	private Timestamp createDate ;
+	private Timestamp lastEditDate ; 
 	public Post(int id, String title) {
 		super();
 		this.id = id;
@@ -21,6 +21,21 @@ public class Post {
 	private int state;
 	private long rate;
 	
+	private String content;		// 显示内容，显示HTML标签 和 markdown 语法符号。
+	private String releaseDate; // 生成索引的日期
+	
+	public String getReleaseDate() {
+		return releaseDate;
+	}
+	public void setReleaseDate(String releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	private User user;
 	private Archive archive;
 	
@@ -111,6 +126,10 @@ public class Post {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public Post(int state) {
+		super();
+		this.state = state;
+	}
 	public Post(int id, String title, String html, String markdown, Timestamp createDate, Timestamp lastEditDate,
 			int state, long rate, User user, Archive archive) {
 		super();
@@ -137,6 +156,12 @@ public class Post {
 		this.user = user;
 	}
 	
+	
+	public Post(int id, int state) {
+		super();
+		this.id = id;
+		this.state = state;
+	}
 	public static void main(String[] args) {
 		System.out.println(new Post().getCreateDate());
 	}

@@ -27,7 +27,7 @@
   	</resultMap>
   
  	<select id="findAllCategories" resultType="Categories">
-	 		select * from t_categories;
+	 		select * from t_categories ;
 	 </select>
 	
 	 <select id="findPostByCategorise" resultMap="postByCategoriseResult">
@@ -57,7 +57,7 @@
 	
 	<select id="findPostCountByCate" parameterType="Categories" resultType="int">
 		SELECT COUNT(*) FROM t_post p,t_categories c ,t_post_categories pc
- 			WHERE  p.id=pc.post_id AND c.id=pc.categories_id AND 
+ 			WHERE  p.id=pc.post_id AND c.id=pc.categories_id AND p.state=1 AND
  			<if test="id > 0">
  				c.id=#{id}
  			</if>
@@ -65,6 +65,19 @@
  				c.categoriesName =#{categoriesName}
  			</if>
  			;
+	</select>
+	
+	<resultMap type="CountResult" id="postCountBycatess">
+		<result property="typeId" column="typeId"/>
+		<result property="typeName" column="typeName"/>
+		<result property="count" column="count"/>
+	</resultMap>
+	
+	<select id="findPostCountByCates" resultMap="postCountBycatess">
+		SELECT c.id  typeId, c.categoriesName typeName, COUNT(*) count  FROM t_post_categories pc ,t_post p,t_categories c
+		WHERE p.state=1 AND p.id=pc.post_id AND c.id=pc.categories_id 
+		 GROUP BY  c.id ;
+	
 	</select>
 	
 </mapper>

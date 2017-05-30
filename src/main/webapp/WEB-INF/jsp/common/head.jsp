@@ -3,7 +3,53 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 
+<script>
 
+	function search(){
+		if($("#q").val()!=null&&$("#q").val().trim()!=""){
+			window.location.href="${pageContext.request.contextPath}/blog/post/q?q="+$("#q").val().trim();
+		}else{
+			alert("请输入关键字，后在搜索！");
+		}
+	}
+	
+$(document).ready(function(){
+	$('.asearch').hover(function(){
+		$('.search').show();
+	});
+	 $('#q').blur(function(){
+		 if($("#q").val()!=null&&$("#q").val().trim()!=""){
+				//alert("可以收索了");
+			}else{
+				$('.search').hide();
+			}
+		
+	}); 
+	$('.asearch').click(function(){
+		if($("#q").val()!=null&&$("#q").val().trim()!=""){
+			window.location.href="${pageContext.request.contextPath}/blog/post/q?q="+$("#q").val().trim();
+		}else{
+			alert("请输入关键字，后在搜索！");
+		}
+	});
+});
+</script>
+<style type="text/css">
+.search{
+	position: absolute;
+    top: 15px;
+    margin-left: 50px;
+}
+/*页面自动生成了 一些，<code></code>  */
+code {
+     padding: 0 0; 
+   /*  font-size: 90%;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px; */
+    
+}
+</style>
 	<!-- start header -->
 	<header class="main-header"
 		style="background-image: url(${pageContext.request.contextPath}/resources/img/xk.jpg);">
@@ -41,8 +87,7 @@
 						<ul class="menu">
 							<li class="nav-current" role="presentation"><a
 								href="${pageContext.request.contextPath}/">首页</a></li>
-							<%-- <li role="presentation"><a
-								href="${pageContext.request.contextPath}/archive">归档</a></li> --%>
+							<%-- <li role="presentation"><a href="${pageContext.request.contextPath}/archive">归档</a></li> --%>
 							<li role="presentation"><a
 								href="${pageContext.request.contextPath}/categories/categories-cloud">分类</a></li>
 							<li role="presentation"><a
@@ -53,6 +98,14 @@
 								href="${pageContext.request.contextPath}/FAQ/links-could" title="问题与解决方案">收藏夹</a></li>
 							<li role="presentation"><a
 								href="${pageContext.request.contextPath}/about">关于</a></li>
+							<li role="presentation"><a
+								href="javascript:void(0);" class="asearch" title="点击即可搜索"><i class="fa fa-search"></i></a>
+								<div class="search" style="display: none;float: left;">
+									<form action="${pageContext.request.contextPath}/blog/post/q" method="get" onsubmit="javascript:search();return false;">
+										<input type="search" name="q" id="q" placeholder="回车搜索...." style="height: 25px; border-radius: 20px 20px 20px 20px;padding: 5px;padding-left: 10px;"/>
+									</form>
+								</div>
+							</li>	
 						</ul>
 					</div>
 				</div>

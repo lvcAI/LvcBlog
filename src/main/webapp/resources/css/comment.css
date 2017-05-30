@@ -3,10 +3,10 @@
 
 #msgBox{width:500px;background:#fff;border-radius:5px;margin:10px auto;padding-top:10px;}
 #msgBox form h2{font-weight:400;font:400 18px/1.5 \5fae\8f6f\96c5\9ed1;}
-
-#userName,#conBox,#email{color:#777;border:1px solid #d0d0d0;border-radius:6px;background:#fff url(img/inputBG.png) repeat-x;padding:3px 5px;font:14px/1.5 arial;}
+#userName,#email{height:20px; }
+#userName,#conBox,#email{color:#777;border:1px solid #d0d0d0;border-radius:6px;padding:3px 5px;font:14px/1.5 arial;}
 #userName.active,#conBox.active,#email.active{border:1px solid #7abb2c;}
-#userName{height:20px;}
+
 #conBox{width:100%;resize:none;height:100px;overflow:auto;}
 #msgBox form div{position:relative;color:#999;margin-top:10px;}
 #msgBox img{border-radius:3px;}

@@ -6,11 +6,14 @@
 
 	<ul class="breadcrumb">
 		<li>
-			文章 Post
+			<a href="${pageContext.request.contextPath}/admin/admin">首页</a>
+		</li>
+		<li>
+			链接 Link
 		</li>
 					
 		<li class="active">
-			文章列表
+			链接列表
 		</li>
 	</ul>
 	<!-- start site's main content area -->
@@ -48,23 +51,9 @@
 							</tbody>		
 						 </table>
 						<p style="font-size: 10px;">注:0 : 友情链接；1：问题与解决. 2 : 回收 不显示在前台和后台;3:我的链接</p>
-						 <nav>
+						 <nav style="margin-bottom:30px;padding-bottom: 20px; ">
 						  <ul class="pagination">
-						    <li>
-						      <a href="#" aria-label="Previous">
-						        <span aria-hidden="true">&laquo;</span>
-						      </a>
-						    </li>
-						    <li><a href="#">1</a></li>
-						    <li><a href="#">2</a></li>
-						    <li><a href="#">3</a></li>
-						    <li><a href="#">4</a></li>
-						    <li><a href="#">5</a></li>
-						    <li>
-						      <a href="#" aria-label="Next">
-						        <span aria-hidden="true">&raquo;</span>
-						      </a>
-						    </li>
+						    ${navPage}
 						  </ul>
 						</nav>
 						

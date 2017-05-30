@@ -20,11 +20,11 @@
 				<main class="col-md-12 main-content">	
 					<form class="am-form" id="add-article-form" action="${pageContext.request.contextPath}/admin/post/save" method="post">
 				
-						 <input type="text" class="form-control" placeholder="请输入文章标题，不要超过30个字符" name="title" value="${update_post.title}" onfocus="javascript:toggle('none')" required="required"/>	
-						<input type="hidden"  name="updateId" value="${update_post.id}"/>
+						 <input type="text" class="form-control" id="title" placeholder="请输入文章标题，不要超过30个字符" name="title" value="${update_post.title}" onfocus="javascript:toggle('none')" required="required"/>	
+						<input type="hidden" id="updateId"  name="updateId" value="${update_post.id}"/>
 					<div class="editormd" id="id_editormd">
-					  <textarea class="editormd-markdown-textarea" name="markdown" onfocus="javascript:toggle('none')" required="required" >${update_post.markdown }</textarea>
-  					  <textarea class="editormd-html-textarea" name="html">${update_post.markdown }</textarea>
+					  <textarea class="editormd-markdown-textarea" id="markdown" name="markdown" onfocus="javascript:toggle('none')" required="required" >${update_post.markdown }</textarea>
+  					  <textarea class="editormd-html-textarea" name="html" id="html">${update_post.markdown }</textarea>
 					  <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
 					</div>	
 					<div class="tags">
@@ -83,7 +83,7 @@
 										<th  style="padding-right: 10px;">常用分类</th>
 											<td id="td_tag21" >
 											<c:forEach items="${categoriess }" var="cate">
-												<a onclick="javascript:setCate2('${cate.categoriesName}');return false;"  target="_blank">${cate.categoriesName}</a>
+												<a onclick="javascript:setCate2('${cate.typeName}');return false;"  target="_blank">${cate.typeName}</a>
 											</c:forEach>
 											</td>
 										</tr>
@@ -114,5 +114,35 @@
 			</div>
 		</div>
 	</section>
-
-
+<!-- 自动保存草稿  -->
+ <%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.powertimer.js" ></script>
+ <script>
+        $(function() {
+        	
+          $('body').powerTimer({
+             interval: 1000*60,
+             func: function() {
+            	 var title =$("#title").val();
+             	
+             	var markdown =$("#markdown").val();
+             	var html =$("#html").val();
+             	var tags =$("#tags").val();
+             	var categories1 =$("#categories1").val();
+             	var updateId=$("#updateId").val();
+             	var post={updateId:updateId,title:title,markdown:markdown,html:html,tags:tags,categories1:categories1};
+              $.ajax({
+              	type:"post",
+              	url:"${pageContext.request.contextPath}/admin/post/presave",
+              	async:true,
+              	data:post,
+              	success:function(result){
+              		$("#updateId").val(result);
+              		alert("文章 以保存");
+              	}
+              	
+              });
+             }
+          });
+        });
+     </script>
+ --%>

@@ -37,31 +37,29 @@
 		t_post p,t_post_categories pc,t_categories c 
 		WHERE p.id=pc.post_id AND c.id=pc.categories_id AND p.id=#{id};
 	</select>
-	<select id="findAllPost" resultType="Post"  parameterType="int">
-		select * from t_post  ORDER BY createDate DESC ;
+	<select id="findAllPost" resultType="Post" parameterType="int">
+		select * from t_post where state=#{id}  ORDER  BY createDate DESC ;
 
 	</select>
-	<select id="findPostLimit"  parameterType="PageBean" resultMap="selectPostsAndTagsResult">
+	<select id="findPostLimit"   resultMap="selectPostsAndTagsResult">
 		SELECT
 		 p.id post_id,p.html post_html,p.markdown post_markdown,
 		 p.createDate post_createDate ,p.lastEditDate post_lastEditDate,
 		 p.title post_title,p.rate post_rate ,
 		 u.userName user_userName,u.id user_id , 
 		 c.categoriesName cate_cateName,
-		c.id cate_id,
-		  t.id tag_id,
-		 t.tagName tag_tagName
+		c.id cate_id
 		 FROM 
-		 t_post p,t_user u ,t_tags t,t_categories c ,t_post_categories pc,t_post_tags pt
+		 t_post p,t_user u ,t_categories c ,t_post_categories pc
 		 WHERE
-		(p.user_id = u.id ) AND (t.id=pt.tags_id ) AND  (p.id=pt.post_id) AND (p.id=pc.post_id) 
-		AND (c.id=pc.categories_id) and p.state=1  ORDER BY p.createDate DESC limit #{start},#{pageSize} ;
+		p.user_id = u.id  AND  p.id=pc.post_id
+		AND c.id=pc.categories_id  and p.state=1 ORDER BY p.createDate DESC
 
 	</select>
 	
 	<!--  -->
 	<select id="getPostCount" resultType="int">
-		SELECT COUNT(*) FROM t_post
+		SELECT COUNT(*) FROM  t_post  where state=1
 	</select>
 	<!-- 点击量加1-->
 	<update id="updatePostByRate" parameterType="Post">
@@ -105,7 +103,7 @@
 	</select>
 	
 	<select id="selectTagsByPost" resultType="Tags">
-	  SELECT t.tagName ,t.id FROM t_tags t,t_post p,t_post_tags pt  WHERE  p.id=pt.post_id and t.id=pt.tags_id  and p.id=#{id}
+	  SELECT t.tagName ,t.id FROM t_tags t,t_post p,t_post_tags pt  WHERE  p.id=pt.post_id and t.id=pt.tags_id and p.state=1  and p.id=#{id}
 	</select>
 	
 	<select id="findPostByTitle" parameterType="String" resultType="Post">
@@ -124,7 +122,7 @@
 		 t_post p,t_user u ,t_categories c ,t_post_categories pc
 		 WHERE
 		p.user_id = u.id  AND  p.id=pc.post_id
-		AND c.id=pc.categories_id  and p.id=#{id} ;
+		AND c.id=pc.categories_id and p.state=1  and p.id=#{id} ;
 	</select>
 	
 	
@@ -143,7 +141,7 @@
       title, createDate, lastEditDate, 
       state, rate, markdown, 
       html)
-    values ( 1, #{title,jdbcType=VARCHAR}, now(), now(), 1, 0, #{markdown,jdbcType=LONGVARCHAR}, #{html,jdbcType=LONGVARCHAR})
+    values ( 1, #{title,jdbcType=VARCHAR}, now(), now(), #{state}, 0, #{markdown,jdbcType=LONGVARCHAR}, #{html,jdbcType=LONGVARCHAR})
   </insert>
 <!--   <insert id="insertSelective" parameterType="Post" >
     insert into t_post
@@ -240,12 +238,12 @@
  	<!-- 上一篇 下一篇 -->
  	
  	<select id="findUpPost" parameterType="Integer" resultType="Post">
- 		SELECT * FROM t_post WHERE id &lt;#{id} ORDER BY createDate DESC LIMIT 1;
+ 		SELECT * FROM t_post WHERE state=1 and id &lt;#{id} ORDER BY createDate DESC LIMIT 1;
 
  	</select>
  	<select id="findDownPost" parameterType="Integer" resultType="Post">
 
- 		SELECT * FROM t_post WHERE id &gt; #{id} ORDER BY createDate ASC LIMIT 1;
+ 		SELECT * FROM t_post WHERE state=1 and id &gt; #{id} ORDER BY createDate ASC LIMIT 1;
  	</select>
  	
  	

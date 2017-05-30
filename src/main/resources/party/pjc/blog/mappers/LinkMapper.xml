@@ -31,6 +31,7 @@
     <if test="pageBean!=null">
       limit #{pageBean.start},#{pageBean.pageSize}
     </if>
+   	
    
   </select>
   <!-- SELECT * FROM t_link WHERE state=1 ORDER BY orderNum DESC LIMIT 1,3;  -->
@@ -39,7 +40,7 @@
   <select id="findLinkCount" resultType="int" >
     select 
    	count(*)
-    from t_link
+    from t_link 
     
     <if test="state >= 0">
     where

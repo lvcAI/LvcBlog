@@ -36,7 +36,7 @@
 						<h4 class="title">分类</h4>
 						<div class="content tag-cloud">
 						<c:forEach var="categories" items="${categoriess}">
-								<a href="${pageContext.request.contextPath}/categories/${categories.categoriesName}">${categories.categoriesName}</a>
+								<a href="${pageContext.request.contextPath}/categories/${categories.typeName}">${categories.typeName}</a>
 							</c:forEach>
 							 <a
 								href="${pageContext.request.contextPath}/categories/categories-cloud/">...</a>

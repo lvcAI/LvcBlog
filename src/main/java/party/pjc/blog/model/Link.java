@@ -98,10 +98,13 @@ public class Link {
 
 	
 	public Link(String urlname, Integer state) {
-		super();
+		
 		this.urlname = urlname;
 		this.state = state;
 	}
+	
+
+	
 
 	@Override
 	public String toString() {

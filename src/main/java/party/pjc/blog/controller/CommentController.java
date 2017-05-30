@@ -37,6 +37,8 @@ public class CommentController {
 	if(Integer.parseInt(state)==0){
 		emailResult = new EmailResult("328097822@qq.com", "您有一条新的留言",comment.getName()+":"+comment.getContext());
 	}else{
+		EmailResult emailResult1 = new EmailResult("328097822@qq.com", "您有一条新的评论",comment.getName()+":"+comment.getContext());
+		EmailUtils.sendEmail(emailResult1);
 		emailResult = new EmailResult(email== null?"328097822@qq.com":email, "来自iLvc.me 的提示","感谢您的评论，我将通过此邮箱与你联系。谢谢");
 	}
 	EmailUtils.sendEmail(emailResult);

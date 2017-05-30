@@ -11,7 +11,7 @@ public interface PostDao {
 
 	public Post findPostById(int id);
 	public Post findPostByTitle(String title);
-	public List<Post> findAllPost();
+	public List<Post> findAllPost(int id);
 	
 	public int insertPost(Post post);
 	public int insertPostAndTag(Post_Tags post_tag);

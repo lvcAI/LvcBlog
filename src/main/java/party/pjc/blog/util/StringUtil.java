@@ -1,6 +1,9 @@
 package party.pjc.blog.util;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class StringUtil {
 
@@ -21,8 +24,8 @@ public class StringUtil {
 	}
 	
 	public static String Html2Text(String inputString) {
-		// ¹ýÂËhtml±êÇ©
-		String htmlStr = inputString; // º¬html±êÇ©µÄ×Ö·û´®
+		// ï¿½ï¿½ï¿½ï¿½htmlï¿½ï¿½Ç©
+		String htmlStr = inputString; // ï¿½ï¿½htmlï¿½ï¿½Ç©ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 		String textStr = "";
 		java.util.regex.Pattern p_script;
 		java.util.regex.Matcher m_script;
@@ -35,32 +38,77 @@ public class StringUtil {
 		java.util.regex.Pattern p_cont2;
 		java.util.regex.Matcher m_cont2;
 		try {
-			String regEx_script = "<[\\s]*?script[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?script[\\s]*?>"; // ¶¨ÒåscriptµÄÕýÔò±í´ïÊ½{»ò<script[^>]*?>[\\s\\S]*?<\\/script>
+			String regEx_script = "<[\\s]*?script[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?script[\\s]*?>"; // ï¿½ï¿½ï¿½ï¿½scriptï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½{ï¿½ï¿½<script[^>]*?>[\\s\\S]*?<\\/script>
 			// }
-			String regEx_style = "<[\\s]*?style[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?style[\\s]*?>"; // ¶¨ÒåstyleµÄÕýÔò±í´ïÊ½{»ò<style[^>]*?>[\\s\\S]*?<\\/style>
+			String regEx_style = "<[\\s]*?style[^>]*?>[\\s\\S]*?<[\\s]*?\\/[\\s]*?style[\\s]*?>"; // ï¿½ï¿½ï¿½ï¿½styleï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½{ï¿½ï¿½<style[^>]*?>[\\s\\S]*?<\\/style>
 			// }
-			String regEx_html = "<[^>]+>"; // ¶¨ÒåHTML±êÇ©µÄÕýÔò±í´ïÊ½
-			String regEx_cont1 = "[\\d+\\s*`~!@#$%^&*\\(?~£¡@#£¤%¡­¡­&*£¨£©¡ª¡ª+|{}¡¾¡¿¡®£º¡±¡°¡¯_]"; // ¶¨ÒåHTML±êÇ©µÄÕýÔò±í´ïÊ½
-			String regEx_cont2 = "[\\w[^\\W]*]"; // ¶¨ÒåHTML±êÇ©µÄÕýÔò±í´ïÊ½[a-zA-Z]
+			String regEx_html = "<[^>]+>"; // ï¿½ï¿½ï¿½ï¿½HTMLï¿½ï¿½Ç©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+			String regEx_cont1 = "[\\d+\\s*`~!@#$%^&*\\(?~ï¿½ï¿½@#ï¿½ï¿½%ï¿½ï¿½ï¿½ï¿½&*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+|{}ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_]"; // ï¿½ï¿½ï¿½ï¿½HTMLï¿½ï¿½Ç©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+			String regEx_cont2 = "[\\w[^\\W]*]"; // ï¿½ï¿½ï¿½ï¿½HTMLï¿½ï¿½Ç©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½[a-zA-Z]
 			p_script = Pattern.compile(regEx_script, Pattern.CASE_INSENSITIVE);
 			m_script = p_script.matcher(htmlStr);
-			htmlStr = m_script.replaceAll(""); // ¹ýÂËscript±êÇ©
+			htmlStr = m_script.replaceAll(""); // ï¿½ï¿½ï¿½ï¿½scriptï¿½ï¿½Ç©
 			p_style = Pattern.compile(regEx_style, Pattern.CASE_INSENSITIVE);
 			m_style = p_style.matcher(htmlStr);
-			htmlStr = m_style.replaceAll(""); // ¹ýÂËstyle±êÇ©
+			htmlStr = m_style.replaceAll(""); // ï¿½ï¿½ï¿½ï¿½styleï¿½ï¿½Ç©
 			p_html = Pattern.compile(regEx_html, Pattern.CASE_INSENSITIVE);
 			m_html = p_html.matcher(htmlStr);
-			htmlStr = m_html.replaceAll(""); // ¹ýÂËhtml±êÇ©
+			htmlStr = m_html.replaceAll(""); // ï¿½ï¿½ï¿½ï¿½htmlï¿½ï¿½Ç©
 			p_cont1 = Pattern.compile(regEx_cont1, Pattern.CASE_INSENSITIVE);
 			m_cont1 = p_cont1.matcher(htmlStr);
-			htmlStr = m_cont1.replaceAll(""); // ¹ýÂËÆäËü±êÇ©
+			htmlStr = m_cont1.replaceAll(""); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç©
 			p_cont2 = Pattern.compile(regEx_cont2, Pattern.CASE_INSENSITIVE);
 			m_cont2 = p_cont2.matcher(htmlStr);
-			htmlStr = m_cont2.replaceAll(""); // ¹ýÂËhtml±êÇ©
+			htmlStr = m_cont2.replaceAll(""); // ï¿½ï¿½ï¿½ï¿½htmlï¿½ï¿½Ç©
 			textStr = htmlStr;
 		} catch (Exception e) {
 			System.err.println("Html2Text: " + e.getMessage());
 		}
-		return textStr;// ·µ»ØÎÄ±¾×Ö·û´®
+		return textStr;// ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+	}
+	
+	//åŽ»æŽ‰HTMLæ ‡ç­¾
+	public static String removeTag(String htmlStr) {
+		String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; // script
+		String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>"; // style
+		String regEx_html = "<[^>]+>"; // HTML tag
+		String regEx_space = "\\s+|\t|\r|\n";// other characters
+
+		Pattern p_script = Pattern.compile(regEx_script,
+			Pattern.CASE_INSENSITIVE);
+		Matcher m_script = p_script.matcher(htmlStr);
+		htmlStr = m_script.replaceAll("");
+		Pattern p_style = Pattern
+			.compile(regEx_style, Pattern.CASE_INSENSITIVE);
+		Matcher m_style = p_style.matcher(htmlStr);
+		htmlStr = m_style.replaceAll("");
+		Pattern p_html = Pattern.compile(regEx_html, Pattern.CASE_INSENSITIVE);
+		Matcher m_html = p_html.matcher(htmlStr);
+		htmlStr = m_html.replaceAll("");
+		Pattern p_space = Pattern
+			.compile(regEx_space, Pattern.CASE_INSENSITIVE);
+		Matcher m_space = p_space.matcher(htmlStr);
+		htmlStr = m_space.replaceAll(" ");
+		return htmlStr;
+	    }
+	
+	public static String getIpAddr(HttpServletRequest request) {
+	    String ip = request.getHeader("X-Forwarded-For");
+	    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+	        ip = request.getHeader("Proxy-Client-IP");
+	    }
+	    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+	        ip = request.getHeader("WL-Proxy-Client-IP");
+	    }
+	    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+	        ip = request.getHeader("HTTP_CLIENT_IP");
+	    }
+	    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+	        ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+	    }
+	    if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+	        ip = request.getRemoteAddr();
+	    }
+	      return ip;
 	}
 }

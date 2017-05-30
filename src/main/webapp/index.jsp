@@ -19,7 +19,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico">
-
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="resources/css/font-awesome.min.css">
 <link rel="stylesheet" href="resources/css/monokai_sublime.min.css">
@@ -28,40 +27,60 @@
 <script type="text/javascript" src="resources/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
 <!-- <script type="text/javascript" src="resources/js/loading.js"></script> -->
-<style id="fit-vids-style">
-.fluid-width-video-wrapper {
-	width: 100%;
-	position: relative;
-	padding: 0;
-}
-
-.fluid-width-video-wrapper iframe, .fluid-width-video-wrapper object,
-	.fluid-width-video-wrapper embed {
+<style type="text/css">
+.search{
 	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+    top: 15px;
+    margin-left: 50px;
 }
-/* .loading {
-  display: table;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  z-index: 5;
+/*页面自动生成了 一些，<code></code>  */
+code {
+     padding: 0 0; 
+   /*  font-size: 90%;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px; */
+    
 }
-
-.loading .progress {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-} */
 </style>
+<script type="text/javascript">
 
-
+function search(){
+	if($("#q").val()!=null&&$("#q").val().trim()!=""){
+		window.location.href="${pageContext.request.contextPath}/blog/post/q?q="+$("#q").val().trim();
+	}else{
+		alert("请输入关键字，后在搜索！");
+	}
+}
+document.onkeydown=function(event){   
+    var e = event || window.event || arguments.callee.caller.arguments[0];   
+    if (e.keyCode == 13 && e.ctrlKey) {    
+        alert("你按下了ctrl+Enter");    
+    }  
+ };    
+	
+	$(document).ready(function(){
+		$('.asearch').hover(function(){
+			$('.search').show();
+		});
+		 $('#q').blur(function(){
+			 if($("#q").val()!=null&&$("#q").val().trim()!=""){
+					//alert("可以收索了");
+				}else{
+					$('.search').hide();
+				}
+			
+		}); 
+		
+		$('.asearch').click(function(){
+			if($("#q").val()!=null&&$("#q").val().trim()!=""){
+				window.location.href="${pageContext.request.contextPath}/blog/post/q?q="+$("#q").val().trim();
+			}else{
+				alert("请输入关键字，后在搜索！");
+			}
+		});
+	});
+</script>
 </head>
 <body class="home-template">
 	<!-- <div class="loading" id="loading">
@@ -69,7 +88,7 @@
    </div> -->
 	<!-- start header -->
 	<header class="main-header"
-		style="background-image: url(resources/img/xk.jpg);">
+		style="background-image: url(${pageContext.request.contextPath}/resources/img/xk.jpg);">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
@@ -77,7 +96,7 @@
 					<!-- start logo -->
 					<a class="branding" href="#"
 						title="iLvc 开源博客平台"><img
-						src="resources/img/ilogoko.png" width="10%" height="10%"
+						src="${pageContext.request.contextPath}/resources/img/ilogoko.png" width="10%" height="10%"
 						alt="iLvc 开源博客平台" title="iLvc | Lvc唯爱"></a>
 					<!-- end logo -->
 				</div>
@@ -101,18 +120,31 @@
 						<ul class="menu">
 							<li class="nav-current" role="presentation"><a
 								href="${pageContext.request.contextPath}/">首页</a></li>
+							<!-- 
 							<%-- <li role="presentation"><a
 								href="${pageContext.request.contextPath}/archive">归档</a></li> --%>
+							 -->
 							<li role="presentation"><a
 								href="${pageContext.request.contextPath}/categories/categories-cloud">分类</a></li>
 							<li role="presentation"><a
 								href="${pageContext.request.contextPath}/tags/tag-cloud">标签</a></li>
+							<li role="presentation"><a
+								href="http://pjc.party/categories/Poem/">诗集</a></li>
 							<li role="presentation"><a
 								href="${pageContext.request.contextPath}/guestBook">留言本</a></li>
 							<li role="presentation"><a
 								href="${pageContext.request.contextPath}/FAQ/links-could" title="问题与解决方案">收藏夹</a></li>
 							<li role="presentation"><a
 								href="${pageContext.request.contextPath}/about">关于</a></li>
+							<li role="presentation"><a
+								href="javascript:void(0);" class="asearch"><i class="fa fa-search"></i></a>
+								<div class="search" style="display: none;float: left;">
+									<form action="${pageContext.request.contextPath}/blog/post/q" method="get" onsubmit="javascript:search();return false;">
+										<input type="search" name="q" id="q" placeholder="回车搜索...." style="height: 25px; border-radius: 20px 20px 20px 20px;padding: 5px;padding-left: 10px;"/>
+									</form>
+								</div>
+								
+								</li>	
 						</ul>
 					</div>
 				</div>
@@ -127,24 +159,25 @@
 		<div class="container">
 			<div class="row">
 
-				<main class="col-md-8 main-content">
+			<main class="col-md-8 main-content">
 
 			<c:forEach items="${applicationScope.posts}" var="post">
 				
 				<article id="98" class="post">
-
-					<div class="post-head">
-						<h1 class="post-title">
-							<a href="${pageContext.request.contextPath}/blog/post/${post.id}">${post.title}</a>
-						</h1>
-						<div class="post-meta">
-							<span class="author">作者：<a
-								href="${pageContext.request.contextPath}/about">${post.user.userName}</a></span> •
-							<time class="post-date" 
-								title="${post.createDate}">${fn:substring(post.createDate,0,10)}</time>
-								<span class="author">分类：<a href="${pageContext.request.contextPath}/categories/${post.categories.categoriesName}">${post.categories.categoriesName}</a></span>
+					
+						<div class="post-head">
+							<h1 class="post-title">
+								<a href="${pageContext.request.contextPath}/blog/post/${post.id}">${post.title}</a>
+							</h1>
+							<div class="post-meta">
+								<span class="author"><a
+									href="${pageContext.request.contextPath}/about"><i class="fa fa-user-md"></i>  ${post.user.userName}</a></span> •&nbsp;  
+								<time class="post-date" 
+									title="${post.createDate}"> <i class="fa fa-calendar"></i> ${fn:substring(post.createDate,0,10)}</time>
+									<span class="author"><i class="fa fa-tags"></i> <a href="${pageContext.request.contextPath}/categories/${post.categories.categoriesName}">${post.categories.categoriesName}</a></span>
+									<%-- <span><i class="fa fa-star" style="color: "></i> ${post.rate}</span> --%>
+							</div>
 						</div>
-					</div>
 					<div class="post-content">
 						${fn:substring(post.html,0,500)}
 					</div>
@@ -161,7 +194,20 @@
 							</c:forEach>
 						</div>
 						
-						<div class="pull-right share"></div>
+						<div class="pull-right share">
+							<!-- JiaThis Button BEGIN -->
+								<div class="jiathis_style">
+									<span class="jiathis_txt">分享到：</span>
+									<a class="jiathis_button_icons_1"></a>
+									<a class="jiathis_button_icons_2"></a>
+									<a class="jiathis_button_icons_3"></a>
+									<a class="jiathis_button_icons_4"></a>
+									<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+									<a class="jiathis_counter_style"></a>
+								</div>
+								<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+								<!-- JiaThis Button END -->
+						</div>
 					</footer>
 					
 				</article>
@@ -170,13 +216,6 @@
 
 				
 
-
-				<%-- <nav class="pagination" role="navigation">
-					<span class="page-number">第 ${page.page } 页 ⁄ ${totalPage} 共 页</span> <a
-						class="older-posts" href="blog/post/page/2"><i
-						class="fa fa-angle-right"></i></a>
-				</nav>
-			 --%>
 			<!-- 首页的 分页栏 -->
 				${indexPage}
 
@@ -209,6 +248,7 @@
 							<p>
 							<a href="https://jq.qq.com/?_wv=1027&k=47a5ekC" title="小伙伴们的技术学习交流群" >交流QQ群：632944013 </a>
 							</p>
+							
 						</div>
 					</div>
 					<!-- end tag cloud widget -->
@@ -218,7 +258,7 @@
 						<h4 class="title">分类</h4>
 						<div class="content tag-cloud">
 						<c:forEach var="categories" items="${categoriess}">
-								<a href="${pageContext.request.contextPath}/categories/${categories.categoriesName}">${categories.categoriesName}</a>
+								<a href="${pageContext.request.contextPath}/categories/${categories.typeName}">${categories.typeName}</a>
 							</c:forEach>
 							 <a
 								href="${pageContext.request.contextPath}/categories/categories-cloud/">...</a>
@@ -237,12 +277,6 @@
 						</div>
 					</div>
 					<!-- end tag cloud widget -->
-
-					<!-- start widget -->
-					<!-- end widget -->
-
-					<!-- start widget -->
-					<!-- end widget -->
 				</aside>
 
 			</div>
@@ -256,7 +290,7 @@
 					<div class="widget">
 						<h4 class="title">最新文章</h4>
 						<div class="content recent-post">
-							<c:forEach var="post" items="${posts}" end="3">
+							<c:forEach var="post" items="${posts}" end="2">
 							
 								<div class="recent-single-post">
 								<a href="${pageContext.request.contextPath}/blog/post/${post.id}"
@@ -302,9 +336,9 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<span>Copyright © <a href="http://pjc.party">iLvc</a></span>
-					|  <span><a href="#"
-						target="_blank">测试版@iLvc 0.1.0</a></span> | <span></span>
+					<span>Copyright 2015-2017 © <a href="http://ilvc.me">iLvc | Lvc唯爱 </a></span>
+					|  <span><a href="http://www.miibeian.gov.cn/"
+						target="_blank">赣ICP备17005492号</a></span> | <span></span>
 				</div>
 			</div>
 		</div>
@@ -313,13 +347,20 @@
 	<a href="#" id="back-to-top" style="display: block;"><i class="fa fa-angle-up"></i></a>
 	
 <script type="text/javascript">
-
-
-
 	  //防止页面后退
     history.pushState(null, null, document.URL);
     window.addEventListener('popstate', function () {
         history.pushState(null, null, document.URL);});
-</script>
+    
+    $('#back-to-top').click(function(){$('html,body').animate({scrollTop: '0px'}, 800);return false;});
+    window.onscroll = function () {
+        if (document.documentElement.scrollTop + document.body.scrollTop > 100) {
+            document.getElementById("back-to-top").style.display = "block";
+        }
+        else {
+            document.getElementById("back-to-top").style.display = "none";
+        }
+    };
+</script> 
 </body>
 </html>

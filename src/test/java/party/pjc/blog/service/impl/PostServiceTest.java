@@ -15,7 +15,8 @@ import party.pjc.blog.service.TagsService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
 		{"classpath:applicationContext.xml",
-		"classpath:spring-mvc.xml"})
+		"classpath:spring-mvc.xml",
+		 "classpath:spring-redis.xml"})
 public class PostServiceTest {
 
 	
@@ -25,13 +26,13 @@ public class PostServiceTest {
 	@Test
 	public void testFindPostByTag() {
 		
-			System.out.println(postService.findAllPost());
+			System.out.println(postService.findAllPost(1));
 	}
 	
 	@Test
 	public void testfindPostLimit() {
-		PageBean page = new PageBean(1, 2);
-			System.out.println(postService.findPostLimit(page));
+		//PageBean page = new PageBean(1, 2);
+			System.out.println(postService.findPostLimit(null));
 	}
 	
 	@Test
@@ -43,12 +44,12 @@ public class PostServiceTest {
 	@Test
 	public void testSelectPostsAndTags() {
 		
-			System.out.println(postService.selectPostsAndTags(new PageBean(1, 2)));
+			System.out.println(postService.selectPostsAndTags(null));
 	}
 	
 	@Test
 	public void testFindPostById(){
-		System.out.println(postService.findPostById(1));
+		System.out.println(postService.findPostById(40));
 		
 	}
 	@Test

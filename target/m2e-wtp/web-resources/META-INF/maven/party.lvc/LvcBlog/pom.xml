@@ -17,18 +17,36 @@
       <scope>test</scope>
     </dependency>
   
+  
+  	<dependency>
+	  <groupId>org.apache.maven.plugins</groupId>
+	  <artifactId>maven-surefire-plugin</artifactId>
+	  <version>2.12.4</version>
+	</dependency>
+	
     <!-- 添加Servlet支持 -->
-  	<!-- <dependency>
+  <!-- 	 <dependency>
 		<groupId>javax.servlet</groupId>
 		<artifactId>javax.servlet-api</artifactId>
 		<version>3.1.0</version>
-	</dependency> -->
+	</dependency>  -->
 	<!-- javax.servlet-api 注释带掉，引用了tomcat下的jar包 -->
 	<!-- <dependency>
 		<groupId>javax.servlet.jsp</groupId>
 		<artifactId>javax.servlet.jsp-api</artifactId>
 		<version>2.3.1</version>
 	</dependency> -->
+	
+	<!-- <dependency>
+	  <groupId>org.apache.maven.plugins</groupId>
+	  <artifactId>maven-resources-plugin</artifactId>
+	  <version>2.6</version>
+	</dependency> -->
+	<dependency>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-resources-plugin</artifactId>
+  <version>3.0.2</version>
+</dependency>
 	
 	<!-- 添加jtl支持 -->
 	<dependency>
@@ -193,6 +211,86 @@
 	    <artifactId>druid</artifactId>
 	    <version>1.0.9</version>
 	</dependency>
+	
+	<!-- apache公共包 -->
+	<dependency>
+		<groupId>commons-codec</groupId>
+		<artifactId>commons-codec</artifactId>
+		<version>1.10</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>commons-lang</groupId>
+		<artifactId>commons-lang</artifactId>
+		<version>2.5</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>commons-beanutils</groupId>
+		<artifactId>commons-beanutils</artifactId>
+		<version>1.8.0</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>commons-collections</groupId>
+		<artifactId>commons-collections</artifactId>
+		<version>3.2.1</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>commons-logging</groupId>
+		<artifactId>commons-logging</artifactId>
+		<version>1.1.1</version>
+	</dependency>
+	
+	<!-- 添加lucene支持 -->
+	<dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-core</artifactId>
+		<version>6.2.1</version>
+	  </dependency>
+	  
+	  <dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-analyzers-common</artifactId>
+		<version>6.2.1</version>
+	 </dependency>
+	 
+	 <dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-analyzers-smartcn</artifactId>
+		<version>6.2.1</version>
+	</dependency>
+	 
+	 
+	 <dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-queryparser</artifactId>
+		<version>6.2.1</version>
+	 </dependency>
+	 
+	 <dependency>
+		<groupId>org.apache.lucene</groupId>
+		<artifactId>lucene-highlighter</artifactId>
+		<version>6.2.1</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.jsoup</groupId>
+	    <artifactId>jsoup</artifactId>
+	    <version>1.8.3</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>redis.clients</groupId>
+	    <artifactId>jedis</artifactId>
+	    <version>2.9.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-pool2</artifactId>
+	    <version>2.4.2</version>
+	</dependency>
+	
   </dependencies>
 
   <build>
