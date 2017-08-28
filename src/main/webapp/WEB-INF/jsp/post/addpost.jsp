@@ -24,7 +24,7 @@
 						<input type="hidden" id="updateId"  name="updateId" value="${update_post.id}"/>
 					<div class="editormd" id="id_editormd">
 					  <textarea class="editormd-markdown-textarea" id="markdown" name="markdown" onfocus="javascript:toggle('none')" required="required" >${update_post.markdown }</textarea>
-  					  <textarea class="editormd-html-textarea" name="html" id="html">${update_post.markdown }</textarea>
+  					  <textarea class="editormd-html-textarea" name="html" >${update_post.markdown }</textarea>
 					  <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
 					</div>	
 					<div class="tags">

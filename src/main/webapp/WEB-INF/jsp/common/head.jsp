@@ -85,19 +85,22 @@ code {
 					</div>
 					<div class="collapse navbar-collapse" id="main-menu">
 						<ul class="menu">
-							<li class="nav-current" role="presentation"><a
+							<li  <c:if test="${pageType==null }"> class="nav-current" </c:if> role="presentation"><a
 								href="${pageContext.request.contextPath}/">首页</a></li>
-							<%-- <li role="presentation"><a href="${pageContext.request.contextPath}/archive">归档</a></li> --%>
-							<li role="presentation"><a
+							<li role="presentation" <c:if test="${pageType=='archive'}"> class="nav-current" </c:if>><a
+								href="${pageContext.request.contextPath}/archive">归档</a></li> 
+							<li role="presentation" <c:if test="${pageType=='categories'}"> class="nav-current" </c:if> ><a
 								href="${pageContext.request.contextPath}/categories/categories-cloud">分类</a></li>
+							<li role="presentation" <c:if test="${pageType=='tags'}"> class="nav-current" </c:if>> <a
+								href="${pageContext.request.contextPath}/tags/tag-cloud" <c:if test="${pageType=='tags'}"> class="nav-current" </c:if> >标签</a></li>
 							<li role="presentation"><a
-								href="${pageContext.request.contextPath}/tags/tag-cloud">标签</a></li>
-							<li role="presentation"><a
-								href="${pageContext.request.contextPath}/guestBook">留言本</a></li>
-							<li role="presentation"><a
-								href="${pageContext.request.contextPath}/FAQ/links-could" title="问题与解决方案">收藏夹</a></li>
-							<li role="presentation"><a
-								href="${pageContext.request.contextPath}/about">关于</a></li>
+								href="http://chunchuji.ilvc.me" target="_blank">诗集</a></li>
+							<li role="presentation" <c:if test="${pageType=='guestBook'}"> class="nav-current" </c:if>><a
+								href="${pageContext.request.contextPath}/guestBook" <c:if test="${pageType=='guestBook'}"> class="nav-current" </c:if> >留言本</a></li>
+							<li role="presentation" <c:if test="${pageType=='link'}"> class="nav-current" </c:if>><a
+								href="${pageContext.request.contextPath}/FAQ/links-could" title="问题与解决方案"  >收藏夹</a></li>
+							<li role="presentation" <c:if test="${pageType=='about'}"> class="nav-current" </c:if>><a
+								href="${pageContext.request.contextPath}/about" >关于</a></li>
 							<li role="presentation"><a
 								href="javascript:void(0);" class="asearch" title="点击即可搜索"><i class="fa fa-search"></i></a>
 								<div class="search" style="display: none;float: left;">
@@ -113,3 +116,23 @@ code {
 		</div>
 	</nav>
 	<!-- end navigation -->
+	<!--  start notice -->
+	<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="huadong">
+							<div class="notice_active">
+								<c:if test="${app_notices!=null}">	<i id="volume" class="fa fa-volume-off" style="color:#e67e22; float: left; margin-top: 8px;width: 5px;" ></i></c:if>
+								<ul style="margin-top: 0.3rem;">
+									<c:forEach items="${app_notices}" var="notice"  >
+										<li class="notice_active_ch">
+											<span title="《${notice.bookname }》：${notice.title}"><c:if test="${notice.type==1}">【公告】&nbsp;&nbsp;</c:if><c:if test="${notice.type==0}">【开卷有益】&nbsp;&nbsp;</c:if>${notice.title}</span>
+										</li>
+									</c:forEach>
+								</ul>
+							</div>
+						</div>
+				</div>
+			</div>
+	</div>
+	<!-- end notice  -->

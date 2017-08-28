@@ -19,6 +19,7 @@ import party.pjc.blog.model.vo.CountResult;
 import party.pjc.blog.model.vo.Result;
 import party.pjc.blog.service.CategoriesService;
 import party.pjc.blog.service.LinkService;
+import party.pjc.blog.service.NoticeService;
 import party.pjc.blog.service.PostService;
 import party.pjc.blog.service.TagsService;
 import party.pjc.blog.service.UserService;
@@ -40,6 +41,8 @@ public class SystemAdminController {
 	private PostService postService; 
 	@Autowired
 	private LinkService linkService; 
+	@Autowired
+	private NoticeService noticeService;
 	
 	/**
 	 * 刷新系统缓存
@@ -63,6 +66,8 @@ public class SystemAdminController {
 	
 		application.setAttribute("tagss",tagsService.findAllTag());
 	//	int result =1;
+		application.setAttribute("app_notices", noticeService.findNotices());
+		
 		Result result = new Result();
 		result.setCode(1);
 		result.setMessage("刷新成功！");

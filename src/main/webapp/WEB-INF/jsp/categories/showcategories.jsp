@@ -9,7 +9,7 @@
 	src="chrome-extension://eojeoeddgeaeahpmfabdfpfialkoplcb/_locales/en/Kernel.js?0.5383648139636812"></script>
 <head>
 <jsp:include page="../common/resource.jsp"></jsp:include>
-<title>首页 iLvc | Lvc唯爱</title>
+<title>分类  -- iLvc | Lvc唯爱</title>
 </head>
 <body class="home-template">
 

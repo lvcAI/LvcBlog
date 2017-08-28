@@ -5,9 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico">
 <title>login | iLvc | Lvc唯爱</title>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style type="text/css">
 .login-dlg {
     position: absolute;

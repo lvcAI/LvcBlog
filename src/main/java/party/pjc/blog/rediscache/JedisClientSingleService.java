@@ -11,7 +11,7 @@ import redis.clients.jedis.JedisPool;
  * @author lvc
  * 单机版
  */
-@Service("jedisClientSingleService")
+
 public class JedisClientSingleService implements RedisClient{
 
 	 @Autowired  

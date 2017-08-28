@@ -42,7 +42,7 @@
 
 	</select>
 	<select id="findPostLimit"   resultMap="selectPostsAndTagsResult">
-		SELECT
+	SELECT
 		 p.id post_id,p.html post_html,p.markdown post_markdown,
 		 p.createDate post_createDate ,p.lastEditDate post_lastEditDate,
 		 p.title post_title,p.rate post_rate ,
@@ -53,7 +53,7 @@
 		 t_post p,t_user u ,t_categories c ,t_post_categories pc
 		 WHERE
 		p.user_id = u.id  AND  p.id=pc.post_id
-		AND c.id=pc.categories_id  and p.state=1 ORDER BY p.createDate DESC
+		AND c.id=pc.categories_id  AND p.state=1 ORDER BY post_rate DESC,p.createDate DESC
 
 	</select>
 	
@@ -84,7 +84,9 @@
 	  </association>
 	  <collection property="tags" javaType="ArrayList" column="post_id" ofType="Tags" select="selectTagsByPost"/> 
 	</resultMap>
-	
+	<select id="selectTagsByPost" resultType="Tags">
+	  SELECT t.tagName ,t.id FROM t_tags t,t_post p,t_post_tags pt  WHERE  p.id=pt.post_id and t.id=pt.tags_id and p.state=1  and p.id=#{id}
+	</select>
 	
 	<select id="selectPostsAndTags" resultMap="selectPostsAndTagsResult">
 	 	SELECT
@@ -102,9 +104,7 @@
 
 	</select>
 	
-	<select id="selectTagsByPost" resultType="Tags">
-	  SELECT t.tagName ,t.id FROM t_tags t,t_post p,t_post_tags pt  WHERE  p.id=pt.post_id and t.id=pt.tags_id and p.state=1  and p.id=#{id}
-	</select>
+	
 	
 	<select id="findPostByTitle" parameterType="String" resultType="Post">
 	 	select * from t_post where title=#{title}

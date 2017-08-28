@@ -29,7 +29,7 @@ public class RedisTest {
 	@Autowired
 	private JedisClientSingleService jedisClientSingleService;
 	
-	@Test
+	
 	public void setPost(){
 		
 		Jedis jedis =jedisPool.getResource();
@@ -54,7 +54,7 @@ public class RedisTest {
 		
 	}
 	
-	@Test
+	
 	public void testRedisSingleService(){
 		
 		//System.out.println(jedisClientSingleService.get("lvc"));
@@ -63,7 +63,7 @@ public class RedisTest {
 	}
 	
 	
-	@Test
+	
 	public void test(){
 		
 		//System.out.println(jedisClientSingleService.get("lvc"));

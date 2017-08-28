@@ -2,6 +2,8 @@ package party.pjc.blog.service;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import party.pjc.blog.model.Link;
 import party.pjc.blog.model.PageBean;
 
@@ -17,4 +19,5 @@ public interface LinkService {
 	    Link findLink(Link link);
 	    
 	    int findLinkCount(Link link);
+	    List<Link> findAllLinkByType( int state);
 }

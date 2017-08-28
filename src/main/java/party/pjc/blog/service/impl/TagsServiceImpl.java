@@ -13,17 +13,17 @@ import party.pjc.blog.service.TagsService;
 public class TagsServiceImpl implements TagsService{
 
 	@Autowired
-	private TagsDao tagdDao;
+	private TagsDao tagsDao;
 	
 	@Override
 	public List<Tags> findAllTag() {
-		return this.tagdDao.findAllTag();
+		return this.tagsDao.findAllTag();
 	}
 
 	@Override
 	public int insertTag(Tags tag) {
 		// TODO Auto-generated method stub
-		return this.tagdDao.insertTag(tag);
+		return this.tagsDao.insertTag(tag);
 	}
 
 	@Override
@@ -41,19 +41,19 @@ public class TagsServiceImpl implements TagsService{
 	@Override
 	public Tags findPostByTag(String tagName) {
 		// TODO Auto-generated method stub
-		return this.tagdDao.findPostByTag(tagName);
+		return this.tagsDao.findPostByTag(tagName);
 	}
 
 	@Override
 	public Tags findTagsByName(String tagName) {
 		// TODO Auto-generated method stub
-		return this.tagdDao.findTagsByName(tagName);
+		return this.tagsDao.findTagsByName(tagName);
 	}
 
 	@Override
 	public int findPostCountByTags(Tags tag) {
 		// TODO Auto-generated method stub
-		return this.tagdDao.findPostCountByTags(tag);
+		return this.tagsDao.findPostCountByTags(tag);
 	}
 	
 	

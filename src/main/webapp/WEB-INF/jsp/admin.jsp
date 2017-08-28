@@ -40,13 +40,15 @@ var editormdElement;
 $(function() {
 	editormdElement = editormd("id_editormd", {
 		width : "100%",
-		height : 540,
-		syncScrolling : "single",
+		height : 740,
 		path : "${pageContext.request.contextPath}/resources/editormd/lib/",
+		saveHTMLToTextarea : true,
+		syncScrolling : "single",
+		tocm : true,  
 		imageUpload : true,
 		imageFormats : [ "jpg", "jpeg", "gif", "png", "bmp", "webp" ],
 		imageUploadURL : "${pageContext.request.contextPath}/uploadfile",
-		saveHTMLToTextarea : true,
+		
 		toolbarIcons : function() {
        		return  ["bold", "del", "italic", "hr", "image", "qiniu", "table", "datetime", "|", "preview", "watch", "|", "fullscreen"];
        	},
@@ -61,7 +63,7 @@ $(function() {
         },
         qiniuTokenUrl : "${pageContext.request.contextPath}/getQiniuToken",	
         qiniuPublishUrl :"http://ooprvk5m6.bkt.clouddn.com",
-        htmlDecode	  : "true",						//是否开启html解析，默认不开启				
+        htmlDecode	  : "false",						//是否开启html解析，默认不开启				
 	});
 });
 
@@ -150,6 +152,24 @@ $(function() {
 					</div>
 					<div class="panel panel-default">
 						<div class="panel-heading">
+							 <i class="fa fa-gears "></i>&nbsp;&nbsp;<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-1" href="#panel-element-5">通知 Notice</a>
+						</div>
+						<div id="panel-element-5" class="panel-collapse collapse">
+							<div class="panel-body">
+							
+								<i class="fa fa-th-list "></i>&nbsp;&nbsp; <a href="${pageContext.request.contextPath}/admin/notice/add">添加通知</a>
+								
+							</div>
+							<div class="panel-body">
+							
+								<i class="fa fa-th-list "></i>&nbsp;&nbsp; <a href="${pageContext.request.contextPath}/admin/notice/list">通知列表</a>
+								
+							</div>
+						</div>
+					</div>
+					
+					<div class="panel panel-default">
+						<div class="panel-heading">
 							 <i class="fa fa-gears "></i>&nbsp;&nbsp;<a class="panel-title collapsed" data-toggle="collapse" data-parent="#panel-1" href="#panel-element-4">系统设置</a>
 						</div>
 						<div id="panel-element-4" class="panel-collapse collapse">
@@ -165,34 +185,17 @@ $(function() {
 							</div>
 						</div>
 					</div>
+					
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<i class="fa fa-sign-out "></i>&nbsp;&nbsp;  <a class="panel-title" href="${pageContext.request.contextPath}/admin/logout">退出</a>
+							<i class="fa fa-sign-out "></i>&nbsp;&nbsp;  <a class="panel-title" href="${pageContext.request.contextPath}/admin/logout">安全退出</a>
 						</div>
 						
 					</div>
 				</div>
 			</div>
 			<div class="col-md-10 column">
-				<!-- <ul class="breadcrumb">
-					<li>
-						 <a href="#">Home</a>
-					</li>
-					<li>
-						 <a href="#">Library</a>
-					</li>
-					<li class="active">
-						Data
-					</li>
-				</ul> -->
-				<c:if test="${mainPage!=null }">
 					<jsp:include page="${mainPage}"></jsp:include>
-				</c:if>
-				<c:if test="${mainPage==null }">
-					<div style="position: absolute;left: 350px;height: 600px;">
-						<img src="${pageContext.request.contextPath}/resources/img/ilogoko.png" />
-					</div>
-				</c:if>
 			</div>
 		</div>
 	</div>
@@ -202,9 +205,9 @@ $(function() {
 <script>
    
     
-	function deletePost(postId){
-		if(confirm("确定要是删除id为"+postId+"的Post吗？")){
-			$.post("${pageContext.request.contextPath}/admin/post/delete/"+postId,postId,function(result){
+	function deletePost(postId,url){
+		if(confirm("确定要是删除id为"+postId+"的内容吗？")){
+			$.post(url+postId,postId,function(result){
 				if(result==1){
 					alert("删除成功！");
 					$("#"+postId).remove();

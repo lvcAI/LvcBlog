@@ -8,9 +8,27 @@
 <script
 	src="chrome-extension://eojeoeddgeaeahpmfabdfpfialkoplcb/_locales/en/Kernel.js?0.5383648139636812"></script>
 <head>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/sidebar.css">
 <jsp:include page="../common/resource.jsp"></jsp:include>
-<title>关于我 | iLvc | Lvc唯爱</title>
-
+<title>留言本  - iLvc | Lvc唯爱</title>
+<style type="text/css">
+#meun-to-top {
+    position: fixed;
+    right: 10px;
+    bottom: 45px;
+    background: rgba(230, 126, 34, 0.6);
+    color: #ffffff;
+    text-align: center;
+    border-radius: 2px;
+    z-index: 999;
+    display: none;
+}
+#meun-to-top i {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+</style>
 </head>
 <body class="home-template">
 
@@ -42,7 +60,7 @@
 					</article>
 					<article class="post page">
 			 			<header class="post-head">
-					        <h4 id="writeGuest" align="left">Write something....? click here </h4>
+					        <h4 id="writeGuest" align="left"  style="cursor: pointer;">Write something....? click here </h4>
 					       
 					    </header>			
 
@@ -69,16 +87,17 @@
 
 					<article  class="post">
 						   <div class="list">
+						   <iframe src="https://www.speakpipe.com/widget/inline/n9mg089hp3h22lmff61gw7diz2ntpmqk" frameborder="0" width="100%" height="180px"></iframe>
 						          <ul id="ulid" style="list-style: none; padding: 0;">
 						          	<li id="liId"></li>
 						          	<c:forEach items="${guestList}" var="comment" varStatus="count">
 						           		<li style="margin: 5px 0;" >
 							           		<div class="media">
 												 <div class="media-left media-middle">
-												      <img class="media-object img-circle" alt="64x64" src="${pageContext.request.contextPath}/resources/img/face/face${count.count}.gif"  style="width: 64px; height: 64px;">
+												      <img class="media-object img-circle" alt="64x64" src="${pageContext.request.contextPath}/resources/img/face/face${count.count}.jpg"  style="width: 64px; height: 64px;">
 												  </div>
 												  <div class="media-body">
-													   	 <h4 class="media-heading"><span style="color: blue;">@</span>${comment.name } <span style="font-size:10px;margin-left:20px;">${comment.createdate}</span></h4>
+													   	 <h4 class="media-heading">${comment.name } <span style="font-size:10px;margin-left:20px;">${comment.createdate}</span></h4>
 												   	 <p>${comment.context}</p>
 												   </div>
 											</div> 
@@ -104,11 +123,10 @@
 					<!-- start widget -->
 					<!-- end widget -->
 				</aside>
-
 			</div>
 		</div>
 	</section>
-	
+<%-- 	<jsp:include page="../common/sidebar.jsp"></jsp:include> --%>
 	<!-- start footer and copyright -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 <script type="text/javascript">
@@ -151,7 +169,9 @@
 	$("#writeGuest").click(function(){
 		  $("#toggleGuest").toggle();
 		});
-	
+	$("#meun-to-top").click(function(){
+		  $("#sidebar2").fadeToggle(3000);
+		});
 
 </script>
 </body>

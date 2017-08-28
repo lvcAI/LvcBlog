@@ -46,5 +46,12 @@ public class LinkServiceImplTest {
 		System.out.println(linkService.findLinkCount(new Link(1)));
 		
 	}
+	@Test
+	public void test3() {
+		
+		
+		System.out.println(linkService.findAllLinkByType(0));
+		
+	}
 	
 }

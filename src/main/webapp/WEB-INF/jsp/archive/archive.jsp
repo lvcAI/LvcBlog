@@ -5,29 +5,27 @@
 <!DOCTYPE html>
 
 <html lang="zh-CN">
-<script
-	src="chrome-extension://eojeoeddgeaeahpmfabdfpfialkoplcb/_locales/en/Kernel.js?0.5383648139636812"></script>
 <head>
-<jsp:include page="../common/resource.jsp"></jsp:include>
-<title>归档 | iLvc | Lvc唯爱</title>
-<style id="fit-vids-style">
-.fluid-width-video-wrapper {
-	width: 100%;
-	position: relative;
-	padding: 0;
-}
 
-.fluid-width-video-wrapper iframe, .fluid-width-video-wrapper object,
-	.fluid-width-video-wrapper embed {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
+
+<jsp:include page="../common/resource.jsp"></jsp:include>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/timeline.css" />
+
+<title>归档  -- iLvc | Lvc唯爱</title>
+
+<style type="text/css">
+	
+		.archive {
+			list-style:none;  
+			font-size: 16px;
+			margin: 5px;
+		}
+		.archive li span{
+			padding-right: 20px;
+		}
+	
 </style>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/img/css/share_style0_24.css">
 </head>
 <body class="home-template">
 	<!-- start headr and navcation  -->
@@ -46,13 +44,37 @@
 					        归档
 					    </h3>
 					    <div class="post-count">
-					        共 99+ 篇文章
+					        共 ${postcount} 篇文章
 				    	</div>
 				    </div>
-		<c:forEach items="${tagByPost.posts}" var="post" >
-			
-			</c:forEach> 
+					<article  class="post">
+						<%-- <ul class="archive">
+							 
+							<c:forEach var="post" items="${post_list}">
+									<li><span>${fn:substring(post.createDate,5,10)}</span><a href="${pageContext.request.contextPath}/blog/post/${post.id}">${post.title}</a></li>
+							</c:forEach>
+						</ul> --%>
+						    <div class="timeline timeline-both">
+						    	<div class="timeline-header">2017</div>
+						    	<c:forEach items="${post_list}" var="post" varStatus="count" >
+						    	
+							        <dl>
+							            <dt>
+							            	<img src="${pageContext.request.contextPath}/resources/img/face/${count.count}.gif" />
+							                <p>${fn:substring(post.createDate,0,10)}</p>
+							                <b><a href="${pageContext.request.contextPath}/blog/post/${post.id}">${post.title}</a></b>
+							            </dt>
+							            <dd><a href="${pageContext.request.contextPath}/blog/post/${post.id}">${fn:substring(post.content,0,50)}</a></dd>
+							        </dl>
+						    	</c:forEach>
+						      
+						    </div>
+					</article>
 				
+				<!-- 首页的 分页栏 -->
+				${navPage}
+				
+
 				</main>
 
 				<aside class="col-md-4 sidebar">

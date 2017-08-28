@@ -1,8 +1,10 @@
 package party.pjc.blog.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +14,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
+import com.xiaoleilu.hutool.util.NumberUtil;
 
 import party.pjc.blog.lucene.PostIndex;
+import party.pjc.blog.model.Notice;
 import party.pjc.blog.model.PageBean;
 import party.pjc.blog.model.Post;
+import party.pjc.blog.model.vo.CountResult;
 import party.pjc.blog.model.vo.EmailResult;
-import party.pjc.blog.rediscache.JedisClientSingleService;
+import party.pjc.blog.service.CategoriesService;
+import party.pjc.blog.service.LinkService;
+import party.pjc.blog.service.NoticeService;
 import party.pjc.blog.service.PostService;
+import party.pjc.blog.service.TagsService;
+import party.pjc.blog.service.UserService;
 import party.pjc.blog.sys.LvcBlogSystem;
+import party.pjc.blog.util.AddressUtils;
 import party.pjc.blog.util.EmailUtils;
+import party.pjc.blog.util.FileUtil;
+import party.pjc.blog.util.NoticeConvertUtil;
 import party.pjc.blog.util.PageUtil;
 import party.pjc.blog.util.PropertiesUtil;
 import party.pjc.blog.util.StringUtil;
@@ -33,16 +44,44 @@ public class PostController {
 	private static Logger logger = Logger.getLogger(PostController.class);  
 	
 	@Autowired
-	private PostService postService;
+	private TagsService tagsService;
 	@Autowired
-	private JedisClientSingleService jedisClientSingleService;
-	private LvcBlogSystem system;
+	private CategoriesService categoriesService;
+	@Autowired
+	private PostService postService; 
+	@Autowired
+	private LinkService linkService;
+	@Autowired
+	private NoticeService noticeService;
 	
 	@RequestMapping("/post/{id}")
 	public String index( @PathVariable("id") int id,HttpServletRequest request){
+		HttpSession session =request.getSession();
+		PageBean page = new PageBean(1, Integer.parseInt(PropertiesUtil.getValue("pageSize")));
+		List<Post> posts =postService.selectPostsAndTags(page); 
+		int totalPost = postService.getPostCount();
+		//mav.addObject("posts",posts );
+		session.setAttribute("posts", posts);
+		session.setAttribute("indexPage", PageUtil.getIndexPage2(totalPost, 1, Integer.parseInt(PropertiesUtil.getValue("pageSize")), "blog/post/page/"));
+		// 阅读排行榜
+		session.setAttribute("post2rate", postService.findPostLimit(null));
+		List<CountResult> catesResult = categoriesService.findPostCountByCates();
+		session.setAttribute("categoriess",catesResult);
+		session.setAttribute("tagss",tagsService.findAllTag());
+		session.setAttribute("app_friendlink",linkService.findAllLinkByType(0));		
+		// 通知
+		List<Notice> notices = NoticeConvertUtil.noticeConver(Integer.parseInt(PropertiesUtil.getValue("noticeSize")), noticeService);
+		request.setAttribute("app_notices",notices);
 		//ModelAndView modelAndView = new ModelAndView();
-		String url = request.getRequestURI();
+	//	String url = request.getRequestURI();
+	//	完整url路径
+		String url="http://" + request.getServerName() //服务器地址    
+        + ":"     
+        + request.getServerPort()           //端口号    
+        + request.getRequestURI();
 		//在请求时，保存请求的路径，key= post/id,value=post
+	
+		
 		Post post=null;
 		post = postService.findPostById(id);
 		logger.info("请求路径："+url);
@@ -67,56 +106,79 @@ public class PostController {
 		}*/
 		post.setRate(post.getRate()+1);
 		postService.updatePostByRate(post);
-		system = new LvcBlogSystem();
+		request.getSession().setAttribute("post2rate", postService.findPostLimit(null));
+		/*system = new LvcBlogSystem();
 		//刷新系统换缓存
 		try {
-		//	system.refreshSystem(request);
+			
+			system.refreshSystem(request,"post2rate");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	//	modelAndView.setViewName("/post/showpost");
 		request.setAttribute("post", postService.findPostById(id));
+		request.setAttribute("pageType", "post");
 		request.setAttribute("navPage", PageUtil.getUpAndDwonPage(postService.findUpAndDown(id), request.getContextPath()));
 		
 		/**
 		 * 获取每个访问者的信息，获取Ip 信息，并发送一封邮件给管理员。
 		 */
-		EmailResult email = new  EmailResult("328097822@qq.com","有游客访问了你的网站。","\n访问的地址："+url+"；\n访问者Ip："+StringUtil.getIpAddr(request));
-		try {
-			EmailUtils.sendEmail(email);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			System.out.println("邮件发送错误："+e1);
-		}
+		if(!request.getServerName().equalsIgnoreCase("localhost")){
+			EmailResult email;
+			try {
+				
+					System.out.println("服务器地址    "+request.getServerName());
+					email = new  EmailResult("328097822@qq.com","有游客访问了你的网站。","\n访问的地址："+url+"；\n访问者Ip："+StringUtil.getIpAddr(request)+"\n访问者地区："+AddressUtils.getAddress("ip="+StringUtil.getIpAddr(request), "utf-8"));
+					EmailUtils.sendEmail(email);
+				
+			
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				System.out.println("邮件发送错误："+e1);
+			}
+		}	
 		return "/post/showpost";
 	}
 	
 	@RequestMapping("/post/add")
 	public String add(HttpServletRequest request){
-	
+		
 		return "/post/addpost";
 	}
 	
 	@RequestMapping("/post/page/{page}")
 	public String showPagePost(@PathVariable("page") int page,HttpServletRequest request){
+		HttpSession session =request.getSession();
+		int totalPost = postService.getPostCount();
+		session.setAttribute("indexPage", PageUtil.getIndexPage2(totalPost, 1, Integer.parseInt(PropertiesUtil.getValue("pageSize")), "blog/post/page/"));
+		// 阅读排行榜
+		session.setAttribute("post2rate", postService.findPostLimit(null));
+		List<CountResult> catesResult = categoriesService.findPostCountByCates();
+		session.setAttribute("categoriess",catesResult);
+		session.setAttribute("tagss",tagsService.findAllTag());
+		session.setAttribute("app_friendlink",linkService.findAllLinkByType(0));		
+		
+		List<Notice> notices = NoticeConvertUtil.noticeConver(Integer.parseInt(PropertiesUtil.getValue("noticeSize")), noticeService);
+		request.setAttribute("app_notices",notices);
 		//ModelAndView modelAndView = new ModelAndView();
 		
 		PageBean pageBean = new PageBean(page, Integer.parseInt(PropertiesUtil.getValue("pageSize")));
-		int totalPost = postService.getPostCount();
 	//	int totalPage=totalPost%pageBean.getPageSize()==0?totalPost/pageBean.getPageSize():totalPost/pageBean.getPageSize()+1;
 		List<Post> posts = postService.selectPostsAndTags(pageBean);
 		String basePath = request.getContextPath();
 		request.setAttribute("postList", posts);
 		request.setAttribute("navPage", PageUtil.getIndexPage(totalPost, page, pageBean.getPageSize(), basePath+"/blog/post/page/"));
-		
+		request.setAttribute("pageType", "post");
 		return "/post/index";
 	}
 	
 	
 	@RequestMapping("/post/draft")
 	public ModelAndView draftPost(HttpServletRequest request){
+		List<Notice> notices = NoticeConvertUtil.noticeConver(Integer.parseInt(PropertiesUtil.getValue("noticeSize")), noticeService);
+		request.setAttribute("app_notices",notices);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/post/draft");
 		return mav;
@@ -131,6 +193,8 @@ public class PostController {
 	 */
 	@RequestMapping("/post/q")
 	public ModelAndView search(@RequestParam(value="q",required=false)String q,@RequestParam(value="page",required=false)String page,HttpServletRequest request)throws Exception{
+		List<Notice> notices = NoticeConvertUtil.noticeConver(Integer.parseInt(PropertiesUtil.getValue("noticeSize")), noticeService);
+		request.setAttribute("app_notices",notices);
 		System.out.println("q："+q);
 		if(StringUtil.isEmpty(page)){
 			page="1";
@@ -203,6 +267,27 @@ public class PostController {
 			pageCode.append("</nav>");
 		}
 		return pageCode.toString();
+	}
+	
+	
+	private int noticeSize(){
+		int size = noticeService.size(null);
+		Integer[] sizes =NumberUtil.generateBySet(1, size-3, 1);
+		
+		return sizes[0];
+	}
+	
+	public static void main(String[] args) {
+		EmailResult email;
+		try {
+			email = new  EmailResult("328097822@qq.com","有游客访问了你的网站。","\n访问的地址："+"；\n访问者Ip：117.167.108.88"+"\n访问者地区："+AddressUtils.getAddress("ip=117.167.108.88", "utf-8"));
+			EmailUtils.sendEmail(email);
+		
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			System.out.println("邮件发送错误："+e1);
+		}
 	}
 }
 

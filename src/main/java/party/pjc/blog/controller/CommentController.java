@@ -26,7 +26,7 @@ public class CommentController {
 	public String save(HttpServletRequest request,HttpServletResponse response) throws Exception{
 	
 	String name=request.getParameter("name");
-	String email =request.getParameter("email") != null?request.getParameter("email"):null;
+	String email =request.getParameter("email");
 	String context =request.getParameter("context");
 	String state = request.getParameter("state");
 	Comment comment = new Comment(context,name,email,Integer.parseInt(state));
@@ -36,10 +36,12 @@ public class CommentController {
 	//发送留言或评论信息
 	if(Integer.parseInt(state)==0){
 		emailResult = new EmailResult("328097822@qq.com", "您有一条新的留言",comment.getName()+":"+comment.getContext());
+		EmailResult emailResult1 = new EmailResult(email, "来自iLvc.me 的提示","感谢您的评论或留言，我将通过此邮箱与你联系。");
+		EmailUtils.sendEmail(emailResult1);
 	}else{
 		EmailResult emailResult1 = new EmailResult("328097822@qq.com", "您有一条新的评论",comment.getName()+":"+comment.getContext());
 		EmailUtils.sendEmail(emailResult1);
-		emailResult = new EmailResult(email== null?"328097822@qq.com":email, "来自iLvc.me 的提示","感谢您的评论，我将通过此邮箱与你联系。谢谢");
+		emailResult = new EmailResult(email== null?"328097822@qq.com":email, "来自iLvc.me 的提示","感谢您的评论或留言，我将通过此邮箱与你联系。");
 	}
 	EmailUtils.sendEmail(emailResult);
 	if(result>0){

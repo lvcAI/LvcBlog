@@ -53,8 +53,8 @@ public class PostAdminController {
 	@Autowired
 	private LinkService linkService;
 	
-	@Autowired
-	private JedisClientSingleService jedisClientSingleService;
+/*	@Autowired
+	private JedisClientSingleService jedisClientSingleService;*/
 	
 	private LvcBlogSystem system;
 	

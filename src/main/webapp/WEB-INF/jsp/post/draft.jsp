@@ -8,7 +8,7 @@
 
 <head>
 	<jsp:include page="../common/resource.jsp"></jsp:include>
-	<title>草稿纸 | iLvc | Lvc唯爱</title>
+	<title>草稿纸  -- iLvc | Lvc唯爱</title>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/editormd/css/editormd.min.css">
 	<script src="${pageContext.request.contextPath}/resources/editormd/lib/marked.min.js"></script>	
 	<script src="${pageContext.request.contextPath}/resources/editormd/lib/prettify.min.js"></script>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="party.pjc.blog.dao.NoticeDao">
+  <resultMap id="BaseResultMap" type="party.pjc.blog.model.Notice">
+   <id column="id" property="id"/>
+   <result column="title" property="title"/>
+   <result column="add_time" property="addTime"/>
+   <result column="bookname" property="bookname"/>
+   <result column="type" property="type"/>
+   
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, add_time, ip, bookname, type
+  </sql>
+  <select id="findNoticeById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_notice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insert" parameterType="party.pjc.blog.model.Notice">
+    insert into t_notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+    
+        add_time,
+     
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="bookname != null">
+        bookname,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+    	now(),
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="bookname != null">
+        #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="party.pjc.blog.model.Notice">
+    update t_notice
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+     
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="bookname != null">
+        bookname = #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  
+  <select id="findLimitNotice" resultMap="BaseResultMap">
+  	SELECT 
+  	 <include refid="Base_Column_List" />
+  	 FROM t_notice 
+  	 <if test="notice.type==null">
+  		WHERE 	type!=2
+  		</if>
+  	 <if test="notice.type!=null">
+  		WHERE 	Ttype=#{notice.type}
+  		</if>
+  	  ORDER BY add_time DESC LIMIT #{page.start},#{page.pageSize};
+  </select>
+  <select id="size" resultType="int" parameterType="Integer">
+  		select count(*) from t_notice 
+  		<if test="type==null">
+  			where type!=2
+  		</if>
+  		<if test="type!=null">
+  			where type = #{type}  
+  		</if>
+  </select>
+  <select id="findNotices" resultMap="BaseResultMap">
+  	SELECT 
+  	 <include refid="Base_Column_List" />
+  	 FROM t_notice where type!=2 ORDER BY add_time DESC 
+  </select>
+  
+  <!-- delete 伪删除  -->
+  <update id="delete">
+  		update t_notice set type=2 where id=#{id} 
+  </update>
+  
+  
+  
+</mapper>

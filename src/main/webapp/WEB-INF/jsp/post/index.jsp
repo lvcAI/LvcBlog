@@ -5,103 +5,37 @@
 <!DOCTYPE html>
 
 <html lang="zh-CN">
-<script
-	src="chrome-extension://eojeoeddgeaeahpmfabdfpfialkoplcb/_locales/en/Kernel.js?0.5383648139636812"></script>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-<title>LvcBlog</title>
-<meta name="description" content="LvcBlog">
-<meta name="keywords" content="LvcBlog blog ilvc lvc">
-
-<meta name="HandheldFriendly" content="True">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico">
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/monokai_sublime.min.css">
-<link href="${pageContext.request.contextPath}/resources/css/magnific-popup.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/screen.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-
-<style id="fit-vids-style">
-.fluid-width-video-wrapper {
-	width: 100%;
-	position: relative;
-	padding: 0;
-}
-
-.fluid-width-video-wrapper iframe, .fluid-width-video-wrapper object,
-	.fluid-width-video-wrapper embed {
+<title>首页 - iLvc | Lvc唯爱</title>
+<jsp:include page="../common/resource.jsp"></jsp:include>
+<style type="text/css">
+.search{
 	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+    top: 15px;
+    margin-left: 50px;
 }
-
+/*页面自动生成了 一些，<code></code>  */
+code {
+     padding: 0 0; 
+   /*  font-size: 90%;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px; */
+    
+}
 </style>
-
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/img/css/share_style0_24.css">
 </head>
 <body class="home-template">
 
 	<!-- start header -->
-	<header class="main-header"
-		style="background-image: url(${pageContext.request.contextPath}/resources/img/xk.jpg);">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
+	
+	<jsp:include page="../common/head.jsp"></jsp:include>
 
-					<!-- start logo -->
-					<a class="branding" href="#"
-						title="iLvc 开源博客平台"><img
-						src="${pageContext.request.contextPath}/resources/img/ilogoko.png" width="10%" height="10%"
-						alt="iLvc 开源博客平台"></a>
-					<!-- end logo -->
-				</div>
-			</div>
-		</div>
-	</header>
 	<!-- end header -->
 
-	<!-- start navigation -->
-	<nav class="main-navigation">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="navbar-header">
-						<span class="nav-toggle-button collapsed" data-toggle="collapse"
-							data-target="#main-menu"> <span class="sr-only">Toggle
-								navigation</span> <i class="fa fa-bars"></i>
-						</span>
-					</div>
-					<div class="collapse navbar-collapse" id="main-menu">
-						<ul class="menu">
-							<li class="nav-current" role="presentation"><a
-								href="${pageContext.request.contextPath}/">首页</a></li>
-							<li role="presentation"><a
-								href="${pageContext.request.contextPath}/archive">归档</a></li>
-							<li role="presentation"><a
-								href="${pageContext.request.contextPath}/categories/categories-cloud">分类</a></li>
-							<li role="presentation"><a
-								href="${pageContext.request.contextPath}/tags/tag-cloud">标签</a></li>
-							<li role="presentation"><a
-								href="${pageContext.request.contextPath}/guestBook">留言本</a></li>
-							<li role="presentation"><a
-								href="${pageContext.request.contextPath}/about">关于</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</nav>
-	<!-- end navigation -->
+
+	
 
 
 	<!-- start site's main content area -->
@@ -113,7 +47,7 @@
 
 			<c:forEach items="${postList}" var="post">
 			
-				<article id="98" class="post">
+				<article  class="post">
 
 					
 						<div class="post-head">
@@ -181,143 +115,18 @@
 				</main>
 
 				<aside class="col-md-4 sidebar">
-					<!-- start widget -->
-					<!-- end widget -->
-
 					<!-- start tag cloud widget -->
-					<div class="widget">
-						<h4 class="title">交流</h4>
-						<div class="content community">
-							
-							<p>
-								<a href="#" title="GitHub"
-									target="_blank">
-									<i class="fa fa-comments"></i> GitHub </a>
-							</p>
-							<p>
-								<a href="#" title="ilvc官方微博"
-									target="_blank">
-									<i class="fa fa-weibo"></i> 新浪微博</a>
-							</p>
-							<p>
-								<a href="#" title="ilvc官方微博"
-									target="_blank">
-									<i class="fa fa-music"></i> 网 易 云</a>
-							</p>
-							<p>
-							<a href="https://jq.qq.com/?_wv=1027&k=47a5ekC">交流QQ群：632944013 </a>
-							</p>
-						</div>
-					</div>
+					<jsp:include page="../common/aside.jsp"></jsp:include>
 					<!-- end tag cloud widget -->
 
-					<!-- start tag cloud widget -->
-					<div class="widget">
-						<h4 class="title">分类</h4>
-						<div class="content tag-cloud">
-						<c:forEach var="categories" items="${categoriess}">
-								<a href="${pageContext.request.contextPath}/categories/${categories.typeName}">${categories.typeName}</a>
-							</c:forEach>
-							 <a
-								href="${pageContext.request.contextPath}/categories/categories-cloud/">...</a>
-						</div>
-					</div>
-					<!-- end tag cloud widget -->
-
-					<!-- start tag cloud widget -->
-					<div class="widget">
-						<h4 class="title">标签云</h4>
-						<div class="content tag-cloud">
-							<c:forEach var="tag" items="${tagss}">
-								<a href="${pageContext.request.contextPath}/tags/${tag.tagName}">${tag.tagName}</a>
-							</c:forEach>
-							 <a href="${pageContext.request.contextPath}/tags/tag-cloud">...</a>
-						</div>
-					</div>
-					<!-- end tag cloud widget -->
-
-					<!-- start widget -->
-					<!-- end widget -->
-
-					<!-- start widget -->
-					<!-- end widget -->
 				</aside>
 
 			</div>
 		</div>
 	</section>
 
-	<footer class="main-footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="widget">
-						<h4 class="title">最新文章</h4>
-						<div class="content recent-post">
-							<c:forEach var="post" items="${posts}" end="3">
-							
-								<div class="recent-single-post">
-								<a href="${pageContext.request.contextPath}/blog/post/${post.id}"
-									class="post-title">${post.title}</a>
-								<div class="date">${fn:substring(post.createDate,0,10)}</div>
-							</div>
-							</c:forEach>
-							
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-4">
-					<div class="widget">
-						<h4 class="title">标签云</h4>
-						<div class="content tag-cloud">
-							<c:forEach var="tag" items="${tagss}">
-								<a href="${pageContext.request.contextPath}/tags/${tag.tagName}">${tag.tagName}</a>
-							</c:forEach>
-							 <a href="${pageContext.request.contextPath}/tags/tag-cloud/">...</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-4">
-					<div class="widget">
-						<h4 class="title">友情链接</h4>
-						<div class="content tag-cloud friend-links">
-							<a href="#" title="Bootstrap中文网"
-								onclick="_hmt.push([&#39;_trackEvent&#39;, &#39;link&#39;, &#39;click&#39;, &#39;bootcsscom&#39;])"
-								target="_blank">Bootstrap中文网</a> <a
-								href="#" title="开放CDN服务"
-								onclick="_hmt.push([&#39;_trackEvent&#39;, &#39;link&#39;, &#39;click&#39;, &#39;bootcdncn&#39;])"
-								target="_blank">开放CDN服务</a> <a href="#"
-								title="Grunt中文网"
-								onclick="_hmt.push([&#39;_trackEvent&#39;, &#39;link&#39;, &#39;click&#39;, &#39;gruntjsnet&#39;])"
-								target="_blank">Grunt中文网</a> <a href="#"
-								title="Gulp中文网"
-								onclick="_hmt.push([&#39;_trackEvent&#39;, &#39;link&#39;, &#39;click&#39;, &#39;gulpjscomcn&#39;])"
-								target="_blank">Gulp中文网</a>
-							<hr>
-							
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<span>Copyright © <a href="http://ilvc.me">iLvc | Lvc唯爱 </a></span>
-					|  <span><a href="http://www.miibeian.gov.cn/"
-						target="_blank">赣ICP备17005492号</a></span> | <span></span>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<a href="#" id="back-to-top" style="display: block;"><i class="fa fa-angle-up"></i></a>
+	<!--start footer copyright  -->
+	<jsp:include page="../common/footer.jsp"/>
 
 </body>
 </html>

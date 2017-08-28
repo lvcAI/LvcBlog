@@ -14,23 +14,29 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.xiaoleilu.hutool.Hutool;
+import com.xiaoleilu.hutool.util.NumberUtil;
+
 import party.pjc.blog.lucene.PostIndex;
 import party.pjc.blog.model.Categories;
+import party.pjc.blog.model.Notice;
 import party.pjc.blog.model.PageBean;
 import party.pjc.blog.model.Post;
 import party.pjc.blog.model.vo.CountResult;
 import party.pjc.blog.rediscache.JedisClientSingleService;
 import party.pjc.blog.service.CategoriesService;
+import party.pjc.blog.service.NoticeService;
 import party.pjc.blog.service.PostService;
 import party.pjc.blog.service.TagsService;
 import party.pjc.blog.util.FileUtil;
+import party.pjc.blog.util.NoticeConvertUtil;
 import party.pjc.blog.util.PageUtil;
 import party.pjc.blog.util.PropertiesUtil;
 
 public class  InitBlogData implements  ServletContextListener, ApplicationContextAware {
 
 
-	private static ApplicationContext applicationContext;
+	private static ApplicationContext applicationContext = null;
 	
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
@@ -41,6 +47,7 @@ public class  InitBlogData implements  ServletContextListener, ApplicationContex
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		// TODO Auto-generated method stub
+		
 		ServletContext application = sce.getServletContext();
 	
 		WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext());  
@@ -50,6 +57,8 @@ public class  InitBlogData implements  ServletContextListener, ApplicationContex
 		int totalPost = postService.getPostCount();
 		application.setAttribute("posts",posts );
 		application.setAttribute("indexPage", PageUtil.getIndexPage2(totalPost, 1, Integer.parseInt(PropertiesUtil.getValue("pageSize")), "blog/post/page/"));
+		// 阅读排行榜
+		application.setAttribute("post2rate", postService.findPostLimit(null));
 		/**
 		 * 为了不用每一次启动项目，都要去改配置文件，
 		 * 先添加  SYS_PostIndex 系统——索引，是否已经有索引了
@@ -119,6 +128,11 @@ public class  InitBlogData implements  ServletContextListener, ApplicationContex
 	
 		TagsService tagsService = (TagsService) context.getBean("tagsService");
 		application.setAttribute("tagss",tagsService.findAllTag());
+		
+		// notice 
+		NoticeService noticeService = (NoticeService) context.getBean("noticeService");
+		List<Notice> notices = NoticeConvertUtil.noticeConver(Integer.parseInt(PropertiesUtil.getValue("noticeSize")), noticeService);
+		application.setAttribute("app_notices",notices);
 	}
 
 	@Override
@@ -127,6 +141,4 @@ public class  InitBlogData implements  ServletContextListener, ApplicationContex
 		
 	}
 
-	
-	
 }

@@ -1,0 +1,58 @@
+.sidebar2 {
+				    position: fixed;
+				    right: 0;
+				    top: 0;
+				    bottom: 0;
+				    width: 0;
+				    z-index: 1040;
+				    box-shadow: inset 0 2px 6px #000;
+				    background: #222;
+				    -webkit-transform: translateZ(0);
+				}
+				.sidebar2-inner {
+				    position: relative;
+				    padding: 20px 10px;
+				    color: #999;
+				    text-align: center;
+				}
+							.sidebar2-panel-active {
+				    display: block;
+				}
+				
+							.site-state {
+				    overflow: hidden;
+				    line-height: 1.4;
+				    white-space: nowrap;
+				    text-align: center;
+				}
+							
+							.links-of-author {
+				    margin-top: 20px;
+				}
+							.links-of-blogroll {
+				    font-size: 13px;
+				}
+				.sidebar2 a:hover {
+				    color: #eee;
+				}
+						
+				.site-state-item a {
+					    border-bottom: none;
+				}
+			
+				.sidebar2 a {
+				    color: #999;
+				    border-bottom-color: #555;
+				}
+				
+					
+				.use-motion .motion-element {
+				    opacity: 0;
+				}
+				
+				.site-state {
+				    overflow: hidden;
+				    line-height: 1.4;
+				    white-space: nowrap;
+				    text-align: center;
+				}

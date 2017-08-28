@@ -1,0 +1,89 @@
+/*
+  Easyui Of Insdep Theme 2.x 
+ insdep 2.0.0
+  来自   https://www.insdep.com/2.x
+*/
+
+.timeline{ position: relative; clear: both; height: auto; border-left: 1px solid #dcdcdc; margin: 0 0 0 170px; padding: 20px 0 200px; }
+.timeline:before,.timeline:after{content:""; width: 10px; height: 10px; background-color: #bebebe; position:absolute; left:-5px; border-radius: 10px;}
+.timeline:before{ top: 0;}
+.timeline:after{ bottom: 0;}
+
+.timeline dl{ width: 100%; height: auto; clear: both;}
+.timeline dl dt{ float: left;  position:relative; text-align: right; width: 170px; margin: 0 0 0 -190px;line-height: 20px; padding: 10px 0;}
+.timeline dl dt b{ font-size: 12px; }
+.timeline dl dt p{ color: #787878; }
+.timeline dl dd{ float: left; position:relative; margin:2px 0 20px 20px; line-height: 20px; padding: 10px; display: block; border-radius:5px; background-color: #fff; border: 1px solid #dcdcdc; box-shadow: 0 10px 15px -15px #888;}
+.timeline dl dt:before{ content:""; width: 10px; height: 10px; background-color: #007ddc; position:absolute; top: 15px; right:-25px; border-radius: 10px;}
+
+.timeline dl dd:before,.timeline dl dd:after{width:0px;height:0px;border:transparent solid;position:absolute;right:100%;content:""}
+.timeline dl dd:before{border-width:9px;border-right-color: #c3c3c3;top:10px;}
+.timeline dl dd:after{border-width:8px;border-right-color: #fff;top:11px;}
+
+.timeline-header{padding: 10px; border-radius:5px; background-color: #fff; border: 1px solid #dcdcdc; box-shadow: 0 10px 15px -15px #888; width: 120px; font-weight: bold; margin: -22px 0 20px -72px; text-align: center; position: relative;}
+
+.timeline-portrait-node dl dt img{ width: 46px; height: 46px; border-radius: 50px; position: absolute; top: 8px; right: -65px; border:4px solid #e6e6e6; background-color: #e6e6e6;  }
+.timeline-portrait-node{ margin: 0 0 0 190px;}
+.timeline-portrait-node dl dt{  width: 220px; margin: 0 0 0 -260px;}
+.timeline-portrait-node dl dt:before{ display: none; }
+.timeline-portrait-node dl dd{margin: 8px 0 20px 40px;}
+
+.timeline-left{ margin: 0 0 0 10px;}
+.timeline-left dl dt,.timeline-left dl dd{clear: both;}
+.timeline-left dl dt{text-align:left; width:auto; margin: 0 0 0 20px;}
+.timeline-left dl dt:before{left: -25px;}
+
+.timeline-left dl dd:before,.timeline-left dl dd:after{border:transparent solid;top:100%;}
+.timeline-left dl dd:before{border-width:6px;border-bottom-color: #c3c3c3;top:-12px;left:15px;}
+.timeline-left dl dd:after{border-width:5px;border-bottom-color: #fff;top:-10px;left:16px;}
+.timeline-left dl dd{margin: 0 0 10px 20px;}
+
+.timeline-portrait-node.timeline-left{margin: 0 0 0 45px;}
+.timeline-portrait-node.timeline-left dl dt{margin: 0 0 0 40px;}
+.timeline-portrait-node.timeline-left dl dt img{left: -68px;}
+.timeline-portrait-node.timeline-left dl dd{margin: 0 0 15px 40px;}
+
+.timeline-both{margin: 0 0 0 50%;}
+.timeline-both dl:nth-child(even) dd{ margin: 2px 100% 20px -100%;float: right;right: 20px;}
+.timeline-both dl:nth-child(even) dt{text-align: left;margin:0;width:auto;padding: 0 0 0 20px;position: absolute;}
+.timeline-both dl:nth-child(even) dt:before{left: -5px;}
+.timeline-both dl:nth-child(even) dd:before,.timeline-both dl:nth-child(even) dd:after{border:transparent solid;right: 0;}
+.timeline-both dl:nth-child(even) dd:before{border-width:9px;border-left-color: #c3c3c3;top: 11px;right: -18px;}
+.timeline-both dl:nth-child(even) dd:after{border-width:8px;border-left-color: #fff;top: 12px;right: -16px;}
+.timeline-portrait-node.timeline-both dl:nth-child(even) dt img{left: -28px;}
+.timeline-portrait-node.timeline-both dl:nth-child(even) dt{padding: 10px 0 0 40px;}
+.timeline-portrait-node.timeline-both dl:nth-child(even) dd{right: 45px;margin: 15px 100% 20px -100%;}
+
+.timeline-node-red dt:before
+{ background-color:#e61414 !important; }
+.timeline-node-orange dt:before
+{ background-color:#ff6c00 !important; }  
+.timeline-node-yellow dt:before
+{ background-color:#ffbe00 !important; } 
+.timeline-node-olive dt:before
+{ background-color:#afc800 !important; }  
+.timeline-node-green dt:before
+{ background-color:#41aa00 !important; }  
+.timeline-node-teal dt:before
+{ background-color:#00beb4 !important; }  
+.timeline-node-blue dt:before
+{ background-color:#007ddc !important; }  
+.timeline-node-darkblue dt:before
+{ background-color:#004b96 !important; }  
+.timeline-node-violet dt:before
+{ background-color:#642dd7 !important; }  
+.timeline-node-purple dt:before
+{ background-color:#a01ec8 !important; }  
+.timeline-node-pink dt:before
+{ background-color:#dc238c !important; }  
+.timeline-node-brown dt:before
+{ background-color:#be5f1e !important; }
+.timeline-node-grayish dt:before
+{ background-color:#e1e1e1 !important;}
+.timeline-node-grey dt:before
+{ background-color:#646464 !important; }
+.timeline-node-black dt:before
+{ background-color:#1e1e1e !important; }
+.timeline-node-white dt:before
+{ background-color:#fff !important; color:#1e1e1e;}
+

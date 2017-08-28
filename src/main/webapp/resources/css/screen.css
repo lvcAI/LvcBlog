@@ -150,7 +150,7 @@ pre {
   text-align: center;
   background: #ffffff;
   border-top: 1px solid #ebebeb;
-  margin-bottom: 35px;
+  margin-bottom: 5px;
   border-bottom: 2px solid #e1e1e1;
 }
 .main-navigation .menu {
@@ -252,7 +252,8 @@ pre {
 	main post area
 ====================================================*/
 .post {
-  padding: 35px;
+  margin-top:5px;
+  padding: 30px;
   background: #ffffff;
   margin-bottom: 35px;
   position: relative;
@@ -677,7 +678,8 @@ pre {
   padding: 0px 30px;
 }
 .widget {
-  margin-bottom: 35px;
+   margin-top:5px;
+  padding: 30px;
 }
 .widget .title {
   margin-top: 0;
@@ -778,7 +780,8 @@ pre {
 .cover {
   text-align: center;
   background: #ffffff;
-  padding: 35px;
+  padding: 30px;
+  margin-top:5px;
   margin-bottom: 35px;
 }
 .cover .tag-name {
@@ -880,3 +883,43 @@ pre {
   height: 30px;
   line-height: 30px;
 }
+
+/* notice   */
+	.huadong {  position:relative;font: 12px/1.5 "Hiragino Sans GB","Microsoft YaHei",simsun;}
+	.huadong .huabox {  line-height: 2rem;}
+	.huadong .hdimg {float:left;float: left;text-align:center; margin-top: 0.5rem;}
+
+/* 	.huadong h5 {font-size:1rem;float:left; line-height: 2.2rem; margin: 0.8rem 0 0 0; } */
+	.huadong .gg_more { float: left;}
+	.huadong .gg_more a { font-size: 0.8rem; text-decoration:none;}
+	
+	.huadong .notice_active {
+			float: left;
+			height: 2rem;
+			padding: 0;
+			overflow: hidden;
+			position: relative;
+			width: 100%;
+	}
+	.huadong .notice_active ul{ padding-left: 10px;margin-bottom: 5px;}
+	.huadong .notice_active li{list-style-type:none;overflow: hidden;}
+	/*.huadong .notice_active li.notice_active_ch {}*/
+	.huadong .notice_active li.notice_active_ch span {color:#656972;font-size:10px; block;overflow: hidden; float: left;
+	overflow: hidden;margin:0 0 1rem 0;padding-bottom: 5px;}
+	.huadong .gg_more .news_ck {
+			float: left;
+			margin: 0 1rem 0 1rem;
+			color: #888;
+			/*width: 5rem;*/
+			height: 2.2rem;
+			line-height: 2.1rem;
+			display: block;
+			border: 1px solid #656972;
+			text-align: center;
+			border-radius: 0.7rem;
+			font-size: 0.1rem;
+			margin-top: 0.3rem;
+		}
+	
+	.huadong .notice_active li.notice_active_ch em {text-align:right;float:right;color:#888;font-size:0.2rem;font-style:normal;  }
+

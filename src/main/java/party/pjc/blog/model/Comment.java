@@ -8,7 +8,7 @@ public class Comment {
 
     private Integer postId;
 
-    private Timestamp createdate = new Timestamp(new Date().getTime());
+    private Timestamp createdate;
 
     private Integer state;
 

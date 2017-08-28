@@ -120,7 +120,7 @@ EventUtil.addLoadHandler(function ()
 			oLi.innerHTML = "<div class=\"media\"><div class=\"media-left media-middle\" style=\"padding:5px 0;\">" +
 					" <img class=\"media-object\" alt=\"64x64\" src=\"/LvcBlog/resources/img/ilogoko.png\" data-holder-rendered=\"true\" style=\"width: 64px; height: 64px;\"></div>" +
 					"<div class=\"media-body\">" +
-					"<h4 class=\"media-heading\">&nbsp;&nbsp;@"+oUserName.value+"<span style=\"font-size:10px;margin-left:20px;\" >"+oDate+"</span>"+"</h4>"+
+					"<h4 class=\"media-heading\">&nbsp;&nbsp;"+oUserName.value+"<span style=\"font-size:10px;margin-left:20px;\" >"+oDate+"</span>"+"</h4>"+
 					" <p style=\"font-size:16px;\"> &nbsp;&nbsp;"+oConBox.value+"</p>" +
 					"</div> </div>";
 			//插入元素

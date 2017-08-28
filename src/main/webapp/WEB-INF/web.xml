@@ -8,8 +8,48 @@
   <display-name>LvcBlog</display-name>
   
   <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>	
+    <welcome-file></welcome-file>
+	</welcome-file-list>
+  
+	  <filter>
+	    <filter-name>WwwFilter</filter-name>
+	    <filter-class>party.pjc.blog.filter.WwwFilter</filter-class>
+	    <init-param>
+	        <param-name>originUrl</param-name>
+	        <param-value>www.ifusc.com</param-value>
+	    </init-param>
+	     <init-param>
+	        <param-name>originUrlnow</param-name>
+	        <param-value>ilvc.me</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>targetUrl</param-name>
+	        <param-value>www.ilvc.me</param-value>
+	    </init-param>
+	</filter>
+	
+	<filter-mapping>
+	    <filter-name>WwwFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	  
+<!--   <filter>
+	  <filter-name>UrlRewriteFilter</filter-name>
+	  <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+	  <init-param>
+		<param-name>logLevel</param-name>
+		<param-value>debug</param-value>
+	</init-param>
+  </filter>
+	<filter-mapping>
+	  <filter-name>UrlRewriteFilter</filter-name>
+	  <url-pattern>/*</url-pattern>
+	  <dispatcher>REQUEST</dispatcher>
+	  <dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	
+ -->
+	  
   <!-- 404页面 -->
     <error-page>
        <error-code>404</error-code>
@@ -21,16 +61,17 @@
        <location>/500.jsp</location>
     </error-page>
   
+  
    <!-- shiro过滤器定义 -->
 	<filter>  
 	    <filter-name>shiroFilter</filter-name>  
 	    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>  
-    <init-param>  
-    <!-- 该值缺省为false,表示生命周期由SpringApplicationContext管理,设置为true则表示由ServletContainer管理 -->  
-    <param-name>targetFilterLifecycle</param-name>  
-    <param-value>true</param-value>  
-    </init-param>  
-	</filter>  
+	    <init-param>  
+		    <!-- 该值缺省为false,表示生命周期由SpringApplicationContext管理,设置为true则表示由ServletContainer管理 -->  
+		    <param-name>targetFilterLifecycle</param-name>  
+		    <param-value>true</param-value>  
+	    </init-param>  
+		</filter>  
 	<filter-mapping>  
 	        <filter-name>shiroFilter</filter-name>  
 	        <url-pattern>/*</url-pattern>  
@@ -40,7 +81,7 @@
     <!-- Spring配置文件 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:applicationContext.xml,classpath:spring-redis.xml</param-value>
+		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 	<!-- 编码过滤器 -->
 	<filter>
@@ -62,9 +103,9 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<!-- 添加获取首页数据 的监听器 -->
-	  <listener>
+	<!--   <listener>
 	  	<listener-class>party.pjc.blog.listener.InitBlogData</listener-class>
-	  </listener>
+	  </listener> -->
 	<!-- 添加对springmvc的支持 -->
 	<servlet>
 		<servlet-name>springMVC</servlet-name>

@@ -20,10 +20,16 @@
 	<context:component-scan base-package="party.pjc.blog.controller" />
 	<bean  
         class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />  
-         <mvc:default-servlet-handler />  
-     <mvc:annotation-driven />
+      
+   <!--   <mvc:annotation-driven /> -->
      <mvc:default-servlet-handler/>
-     
+       <!--<mvc:annotation-driven/>-->
+       <!-- 开启注解，配置json  -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.GsonHttpMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
      	
  
 	<!-- 视图解析器 -->

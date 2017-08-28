@@ -9,7 +9,7 @@
 	src="chrome-extension://eojeoeddgeaeahpmfabdfpfialkoplcb/_locales/en/Kernel.js?0.5383648139636812"></script>
 <head>
 <jsp:include page="../common/resource.jsp"></jsp:include>
-<title>${tagByPost.tagName} | iLvc | Lvc唯爱</title>
+<title>${tagByPost.tagName} -- iLvc | Lvc唯爱</title>
 
 </head>
 <body class="home-template">
@@ -44,10 +44,9 @@
 							<a href="${pageContext.request.contextPath}/blog/post/${post.id}">${post.title}</a>
 						</h1>
 						<div class="post-meta">
-							<span class="author">作者：彭佳成<a
-								href="${pageContext.request.contextPath}/about"></a></span> •
-							<time class="post-date" 
-								title="${post.createDate}">${fn:substring(post.createDate,0,10)}</time>
+							<span class="author">作者：<a
+								href="${pageContext.request.contextPath}/about">彭佳成</a></span>
+							<time class="post-date" > <i class="fa fa-calendar"></i> ${fn:substring(post.createDate,0,10)}</time>
 								<span class="author">分类：<a href="${pageContext.request.contextPath}/categories/${post.categories.categoriesName}">${post.categories.categoriesName}</a></span>
 						</div>
 					</div>

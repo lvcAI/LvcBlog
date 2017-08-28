@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE urlrewrite  
+    PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"  
+    "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">  
+  
+<urlrewrite>  
+  
+  	<!-- 
+	<rule>
+	    <name>seo redirect</name>
+	    <condition name="host" operator="notequal">^ilvc.me</condition>
+      	    <condition name="host" operator="notequal">^localhost</condition>
+	    <from>^/(.*)</from>
+	    <to type="permanent-redirect" last="true">http://www.ilvc.me/</to>
+	</rule>
+	<rule>
+	    <name>seo redirect</name>
+	    <condition name="host" operator="notequal">^www.ifusc.com</condition>
+      	    <condition name="host" operator="notequal">^localhost</condition>
+	    <from>^/(.*)</from>
+	    <to type="permanent-redirect" last="true">http://www.ilvc.me/about</to>
+	</rule> -->
+	 <rule match-type="wildcard">
+        <from>http://ilvc.me</from>
+        <to type="redirect">http://www.ilvc.me</to>
+    </rule>
+    <rule match-type="wildcard">
+        <from>http://www.ifusc.com</from>
+        <to type="redirect">http://www.ilvc.me</to>
+    </rule>
+	
+</urlrewrite>

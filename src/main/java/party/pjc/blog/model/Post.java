@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import party.pjc.blog.util.StringUtil;
+
 
 public class Post {
 
@@ -34,7 +36,7 @@ public class Post {
 		return content;
 	}
 	public void setContent(String content) {
-		this.content = content;
+		this.content = StringUtil.Html2Text(this.getHtml());
 	}
 	private User user;
 	private Archive archive;

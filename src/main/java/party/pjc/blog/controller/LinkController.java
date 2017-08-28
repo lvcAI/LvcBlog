@@ -44,6 +44,7 @@ public class LinkController {
 		//	int totalPage=totalPost%pageBean.getPageSize()==0?totalPost/pageBean.getPageSize():totalPost/pageBean.getPageSize()+1;
 		String basePath = request.getContextPath();
 		request.setAttribute("navPage", PageUtil.getIndexPage(totalLink, 1,Integer.parseInt(PropertiesUtil.getValue("linkSize")), basePath+"/FAQ/links-could/page/"));
+		request.setAttribute("pageType", "link");
 		return "/link/showLinks";		
 	
 	}
@@ -59,7 +60,7 @@ public class LinkController {
 		request.setAttribute("allLinks", allLinks);
 		request.setAttribute("totalLink", totalLink);	
 		request.setAttribute("navPage", PageUtil.getIndexPage(totalLink, curpage, pageBean.getPageSize(), basePath+"/FAQ/links-could/page/"));
-		
+		request.setAttribute("pageType", "link");
 		return "/link/showLinks";
 	}
 	

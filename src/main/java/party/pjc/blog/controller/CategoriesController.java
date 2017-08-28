@@ -15,13 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.xiaoleilu.hutool.util.NumberUtil;
 
 import party.pjc.blog.model.Categories;
+import party.pjc.blog.model.Notice;
 import party.pjc.blog.model.PageBean;
 import party.pjc.blog.model.Tags;
 import party.pjc.blog.model.vo.CountResult;
 import party.pjc.blog.rediscache.JedisClientSingleService;
 import party.pjc.blog.service.CategoriesService;
+import party.pjc.blog.service.NoticeService;
+import party.pjc.blog.util.NoticeConvertUtil;
 import party.pjc.blog.util.PageUtil;
 import party.pjc.blog.util.PropertiesUtil;
 
@@ -33,7 +37,9 @@ public class CategoriesController {
 	@Autowired
 	private CategoriesService categoriesService;
 	@Autowired
-	private JedisClientSingleService jedisClientSingleService;
+	private NoticeService noticeService;
+/*	@Autowired
+	private JedisClientSingleService jedisClientSingleService*/;
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/{categoriesName}",method=RequestMethod.GET)
@@ -59,6 +65,10 @@ public class CategoriesController {
 						System.out.println("通过缓存获取tags"+catesResult);
 					}*/
 				request.setAttribute("catesResult",catesResult );
+				request.setAttribute("pageType","categories");
+				// 通知
+				List<Notice> notices = NoticeConvertUtil.noticeConver(Integer.parseInt(PropertiesUtil.getValue("noticeSize")), noticeService);
+				request.setAttribute("app_notices",notices);
 				return "/categories/showcategories";		
 			}else{
 				/*Categories categories = null;
@@ -80,7 +90,10 @@ public class CategoriesController {
 				String basePath = request.getContextPath();
 				request.setAttribute("pageBean",pageBean );
 				request.setAttribute("navPage", PageUtil.getIndexPage(categories.getPosts().size(), pageBean.getPage(), pageBean.getPageSize(), basePath+"/categories/"+categoriesName+"/page/"));
-				
+				request.setAttribute("pageType","categories");
+				// 通知
+				List<Notice> notices = NoticeConvertUtil.noticeConver(Integer.parseInt(PropertiesUtil.getValue("noticeSize")), noticeService);
+				request.setAttribute("app_notices",notices);
 				return "/categories/post-categories";
 			}
 			
@@ -89,6 +102,10 @@ public class CategoriesController {
 	
 	@RequestMapping("/{categoriesName}/page/{curpage}")
 	public String showPagePost(@PathVariable("categoriesName") String categoriesName,@PathVariable("curpage") int curpage,HttpServletRequest request){
+		// 通知
+		List<Notice> notices = NoticeConvertUtil.noticeConver(Integer.parseInt(PropertiesUtil.getValue("noticeSize")), noticeService);
+		request.setAttribute("app_notices",notices);
+		
 		//ModelAndView modelAndView = new ModelAndView();
 		Categories categories = categoriesService.findPostByCategorise(categoriesName);
 		request.setAttribute("cateByPost",categories );			
@@ -98,8 +115,10 @@ public class CategoriesController {
 		String basePath = request.getContextPath();
 		request.setAttribute("pageBean",pageBean );
 		request.setAttribute("navPage", PageUtil.getIndexPage(categories.getPosts().size(), curpage, pageBean.getPageSize(), basePath+"/categories/"+categoriesName+"/page/"));
-		
+		request.setAttribute("pageType","categories");
 		return "/categories/post-categories";
 	}
 
+	
+	
 }

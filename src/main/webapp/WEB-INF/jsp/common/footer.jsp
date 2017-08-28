@@ -40,12 +40,9 @@
 					<div class="widget">
 						<h4 class="title">友情链接</h4>
 						<div class="content tag-cloud friend-links">
-							<a href="http://pjc.party" title="彭佳成的博客" target="_blank">彭佳成的博客</a> 
-							
-							<hr>
-							<a href="http://bootcss.com/" title="Bootstrap中文网" target="_blank">Bootstrap中文网</a> 
-							<a href="http://www.runoob.com/" title="菜鸟教程" target="_blank">菜鸟教程</a>
-							<a href="http://www.csdn.net/" title="CSDN" target="_blank">CSDN</a>
+								<c:forEach items="${app_friendlink}" var="link">
+								<a href="${link.url}" title="${link.urlname}" target="_blank">${link.urlname}</a> 
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -99,14 +96,17 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<span>Copyright 2015-2017 © <a href="http://ilvc.me">iLvc | Lvc唯爱 </a></span>
-					|  <span><a href="http://www.miibeian.gov.cn/"
-						target="_blank">赣ICP备17005492号</a></span> | <span></span>
+					 <br/> 
+					 <span>
+						<a href="http://www.miibeian.gov.cn/"
+						target="_blank">备案号：赣ICP备17005492号</a></span> 
+					 <span></span>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<a href="#" id="back-to-top" style="display: block;"><i class="fa fa-angle-up"></i></a>
+	<!-- <a href="javascript:void(0);" id="meun-to-top" style="display: block;z-index:9999;"><i class="fa fa-angle-up"></i></a> -->
+	<a href="#" id="back-to-top" style="display: block;z-index:9999;"><i class="fa fa-angle-up"></i></a>
 	
 	<script type="text/javascript">
 	  //防止页面后退
@@ -173,4 +173,44 @@
 		});
 
 
+</script>
+<script type="text/javascript">
+	function timer(opj){
+		$(opj).find('ul').animate({
+			marginTop : "-2.5rem"  
+			},500,function(){  
+			$(this).css({marginTop : "0.3rem"}).find("li:first").appendTo(this);  
+		})  
+	}
+	var i=0;
+	function volume(){
+		if(i==2){
+			$("#volume").removeClass("fa-volume-up");
+			$("#volume").addClass("fa-volume-off");
+			i=0;
+		}
+		if(i==1){
+			$("#volume").removeClass("fa-volume-down");
+			$("#volume").addClass("fa-volume-up");
+			i=2;
+		}
+		if(i==0){
+			$("#volume").removeClass("fa-volume-off");
+			$("#volume").addClass("fa-volume-down");
+			i=1;
+		}
+	}
+	
+	$(function(){ 
+		setInterval('volume()',1000);
+		var num = $('.notice_active').find('li').length;
+		if(num > 1){
+		   var time=setInterval('timer(".notice_active")',5000);
+			$('.notice_active ul li').mousemove(function(){
+				clearInterval(time);
+			}).mouseout(function(){
+				time = setInterval('timer(".notice_active")',5000);
+			}); 
+		}
+	});
 </script>

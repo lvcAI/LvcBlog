@@ -42,7 +42,7 @@
 									  <td ><a href="${pageContext.request.contextPath}/blog/post/${post.id}">${post.title}</a></td>
 									  <td >   <a href="#"><i class="fa fa-share-alt"></i></a></td>
 									  <td > <a href="${pageContext.request.contextPath}/admin/post/update/${post.id}">修改</a></td>
-									  <td ><a href="javascript:deletePost(${post.id});">删除</a></td>
+									  <td ><a href="javascript:deletePost(${post.id},'${pageContext.request.contextPath}/admin/post/delete/');">删除</a></td>
 									</tr>
 								
 								</c:forEach>								

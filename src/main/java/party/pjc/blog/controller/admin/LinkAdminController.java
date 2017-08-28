@@ -54,8 +54,8 @@ public class LinkAdminController {
 	@Autowired
 	private LinkService linkService;
 	
-	@Autowired
-	private JedisClientSingleService jedisClientSingleService;
+	/*@Autowired
+	private JedisClientSingleService jedisClientSingleService;*/
 	
 	private LvcBlogSystem system;
 	

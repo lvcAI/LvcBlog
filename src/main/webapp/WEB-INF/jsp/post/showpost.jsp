@@ -7,7 +7,7 @@
 <html lang="zh-CN">
 <head>
 <jsp:include page="../common/resource.jsp"></jsp:include>
-<title>${post.title} | iLvc | Lvc唯爱</title>
+<title>${post.title} -- iLvc | Lvc唯爱</title>
 
 <script type="text/javascript">
 
@@ -71,7 +71,7 @@ function send2(){
 							</h1>
 							<div class="post-meta">
 								<span class="author"><a href="${pageContext.request.contextPath}/about"><i class="fa fa-user-md"></i>  ${post.user.userName}</a></span> • 
-								<time class="post-date" title="${post.createDate}"> <i class="fa fa-calendar"></i> ${fn:substring(post.createDate,0,10)}</time>
+								<time class="post-date" > <i class="fa fa-calendar"></i> ${fn:substring(post.createDate,0,10)}</time>
 									<span class="author"><i class="fa fa-tags"></i> <a href="${pageContext.request.contextPath}/categories/${post.categories.categoriesName}">${post.categories.categoriesName}</a></span>
 									<span><i class="fa fa-star" style="color: "></i> ${post.rate}</span>
 							</div>

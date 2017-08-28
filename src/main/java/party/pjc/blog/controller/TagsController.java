@@ -16,12 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.xiaoleilu.hutool.util.NumberUtil;
 
+import party.pjc.blog.model.Notice;
 import party.pjc.blog.model.PageBean;
 import party.pjc.blog.model.Post;
 import party.pjc.blog.model.Tags;
 import party.pjc.blog.rediscache.JedisClientSingleService;
+import party.pjc.blog.service.NoticeService;
 import party.pjc.blog.service.TagsService;
+import party.pjc.blog.util.NoticeConvertUtil;
 import party.pjc.blog.util.PageUtil;
 import party.pjc.blog.util.PropertiesUtil;
 
@@ -32,11 +36,16 @@ public class TagsController {
 	@Autowired
 	private TagsService tagsService;
 	@Autowired
-	private JedisClientSingleService jedisClientSingleService;
+	private NoticeService noticeService;
+/*	@Autowired
+	private JedisClientSingleService jedisClientSingleService;*/
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/{tagName}",method=RequestMethod.GET)
 	public String allTag(@PathVariable("tagName")String tagName,HttpServletRequest request){
+		// 通知
+		List<Notice> notices = NoticeConvertUtil.noticeConver(Integer.parseInt(PropertiesUtil.getValue("noticeSize")), noticeService);
+		request.setAttribute("app_notices",notices);
 		System.out.println(tagName);
 		
 			if("tag-cloud".equals(tagName)){
@@ -58,6 +67,7 @@ public class TagsController {
 				}*/
 				
 				request.setAttribute("allTags", tags);
+				request.setAttribute("pageType","tags");
 				return "/tags/showtags";		
 			}else{
 					Tags tag = tagsService.findPostByTag(tagName);
@@ -69,7 +79,8 @@ public class TagsController {
 				//	int totalPage=totalPost%pageBean.getPageSize()==0?totalPost/pageBean.getPageSize():totalPost/pageBean.getPageSize()+1;
 					String basePath = request.getContextPath();
 					request.setAttribute("navPage", PageUtil.getIndexPage(tag.getPosts().size(), pageBean.getPage(), pageBean.getPageSize(), basePath+"/tags/"+tagName+"/page/"));
-				return "/tags/post-tag";
+					request.setAttribute("pageType","tags");
+					return "/tags/post-tag";
 			}
 			
 				
@@ -78,6 +89,10 @@ public class TagsController {
 	
 	@RequestMapping("/{tagName}/page/{curpage}")
 	public String showPagePost(@PathVariable("tagName") String tagName,@PathVariable("curpage") int curpage,HttpServletRequest request){
+		
+		// 通知
+		List<Notice> notices = NoticeConvertUtil.noticeConver(Integer.parseInt(PropertiesUtil.getValue("noticeSize")), noticeService);
+		request.setAttribute("app_notices",notices);
 		//ModelAndView modelAndView = new ModelAndView();
 		Tags tag = tagsService.findPostByTag(tagName);
 		request.setAttribute("tagByPost", tag);
@@ -89,9 +104,15 @@ public class TagsController {
 		String basePath = request.getContextPath();
 		request.setAttribute("pageBean",pageBean );
 		request.setAttribute("navPage", PageUtil.getIndexPage(tag.getPosts().size(), curpage, pageBean.getPageSize(), basePath+"/tags/"+tagName+"/page/"));
-		
+		request.setAttribute("pageType","tags");
 		return "/tags/post-tag";
 	}
 	
+	private int noticeSize(){
+		int size = noticeService.size(null);
+		Integer[] sizes =NumberUtil.generateBySet(1, size-3, 1);
+		
+		return sizes[0];
+	}
 
 }

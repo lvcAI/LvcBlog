@@ -116,4 +116,12 @@
       state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findAllLinkByType" resultMap="BaseResultMap"  >
+  		  select 
+    <include refid="Base_Column_List" />
+  	  from t_link
+  	  where state=#{state}
+   
+  </select>
+  
 </mapper>
